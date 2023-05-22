@@ -1,11 +1,10 @@
 // import React from 'react'
 
-const DeleteButton = ({id}) => {
+const DeleteButton = ({ id }) => {
 
+    console.log(id)
 
-    
-    const eliminarSolicitud = ()=> {
-        // pass
+    const eliminarSolicitud = () => {
         alert("Eliminar solicitud id: " + id)
     }
 

@@ -14,7 +14,7 @@ const Card = ({ solicitud }) => {
                 <div className="card-header border-danger border-3 py-3 bg-white d-flex justify-content-between align-items-center rounded-top-4">
                     <h4 id="nombre-donatario" className="text-start">{solicitud.nombre_apellido_donatario}</h4>
                     <div className="fs-5">
-                        <DeleteButton solicitud={solicitud.id} />
+                        <DeleteButton id={solicitud.id} />
                         <ShareButton solicitud={solicitud} />
                     </div>
                 </div>
