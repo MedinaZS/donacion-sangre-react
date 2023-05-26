@@ -1,5 +1,5 @@
 
-const Accordion = ({ title, items }) => {
+const Accordion = ({ title, items, link }) => {
 
     return (
         <div className="accordion" id="accordionExample">
@@ -11,12 +11,18 @@ const Accordion = ({ title, items }) => {
                 </h2>
                 <div id="collapseTwo" className="accordion-collapse collapse" data-bs-parent="#accordionExample">
                     <div className="accordion-body">
-                        {items.map((item, index) => (
-                            <div key={index}>
-                                <p>hola</p>
-                                
-                            </div>
-                        ))}
+                        <div className="row row-cols-md-2">
+                            {items && items.map((item, index) => (
+                                <div key={index}>
+                                    <h5>{item.local_donacion}</h5>
+                                    Dirección: {item.direccion} <br />
+                                    Horario: {item.hora_apertura ? item.hora_apertura + ':00hs' : '00:00'} <br />
+                                    <a className="me-3" href="#">Ver Más</a>
+                                    <a href={link + item.latitud + '%2C' + item.longitud} target="_blank" rel="noreferrer" >Ver en Google Maps</a>
+                                    <hr />
+                                </div>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </div>
