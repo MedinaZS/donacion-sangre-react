@@ -3,8 +3,6 @@
 const FiltroSolicitudes = () => {
 
     // Add filter
-
-    
     return (
         <div className="d-flex align-items-center justify-content-center fs-3">
             Mis Solicitudes
