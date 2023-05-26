@@ -3,7 +3,7 @@ import PageTitle from "../components/PageTitle"
 import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import Accordion from "../components/Accordion/Accordion";
-import Map from "../components/Map";
+import Map from "../components/Map/Map";
 
 const PuntosDonacion = () => {
 
@@ -21,17 +21,18 @@ const PuntosDonacion = () => {
 			.catch(error => console.log("Error", error))
 	}, [])
 
-	
+
+	const [latlng, setLatlng] = useState(null)
 
 
 	return (
 		<div className="container">
 			<PageTitle title={"Puntos de Donación"} />
 
-			<Accordion title={"Puntos"} items={locales} link={link} />
+			<Accordion title={"Ver todos los puntos"} items={locales} link={link} setLatlng={setLatlng} />
 			<br />
 
-			{locales && <Map locales={locales}></Map>}
+			{locales && <Map locales={locales} latlng={latlng}></Map>}
 
 			{/* {center &&
 				(<MapContainer center={center} zoom={ZOOM_LEVEL} scrollWheelZoom={false}>

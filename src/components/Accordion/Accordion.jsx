@@ -1,5 +1,9 @@
 
-const Accordion = ({ title, items, link }) => {
+const Accordion = ({ title, items, link, setLatlng }) => {
+
+    const handleClick = (latitud, longitud) => {
+        setLatlng({ lat:latitud, lng:longitud })
+    }
 
     return (
         <div className="accordion" id="accordionExample">
@@ -16,8 +20,8 @@ const Accordion = ({ title, items, link }) => {
                                 <div key={index}>
                                     <h5>{item.local_donacion}</h5>
                                     Dirección: {item.direccion} <br />
-                                    Horario: {item.hora_apertura ? item.hora_apertura + ':00hs' : '00:00'} <br />
-                                    <a className="me-3" href="#">Ver Más</a>
+                                    Horario: {item.hora_apertura ? item.hora_apertura + ':00hs' : '00:00'} <br /><br />
+                                    <button className="btn btn-secondary  me-3" onClick={() => handleClick(item.latitud, item.longitud)}>Ver Más</button>
                                     <a href={link + item.latitud + '%2C' + item.longitud} target="_blank" rel="noreferrer" >Ver en Google Maps</a>
                                     <hr />
                                 </div>
