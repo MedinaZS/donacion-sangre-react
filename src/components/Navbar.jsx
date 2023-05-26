@@ -1,6 +1,15 @@
 // import React from 'react'
 
+import { NavLink } from "react-router-dom"
+
 const Navbar = () => {
+
+    const links = [
+        { text: 'Puntos de Donación', url: '/puntos-de-donacion' },
+        { text: 'Solicitudes', url: '/solicitudes' },
+        { text: 'Certificados', url: '/certificados' }
+    ]
+
     return (
         <nav className="navbar navbar-expand-lg border-bottom py-2 px-3 bg-danger">
             <div className="container-fluid p-0">
@@ -18,15 +27,13 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <div className="me-auto"></div>
                     <ul className="navbar-nav mb-2 mb-lg-0 ">
-                        <li className="nav-item">
-                            <a className="nav-link rounded-2 active" aria-current="page" href="#">Puntos de Donación</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link rounded-2 rounded-2" href="#">Solicitudes</a>
-                        </li>
-                        <li className="nav-item">
-                            <a className="nav-link rounded-2" href="#">Certificados</a>
-                        </li>
+
+                        {links.map((link, index) => (
+                            <li key={index} className="nav-item">
+                                <NavLink to={link.url} className="nav-link rounded-2"> {link.text}</NavLink>
+                            </li>
+                        ))}
+                        
                         <button className="btn btn-outline-light ms-3">Login</button>
                     </ul>
                 </div>

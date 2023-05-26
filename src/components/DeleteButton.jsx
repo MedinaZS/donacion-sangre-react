@@ -2,7 +2,7 @@
 
 const DeleteButton = ({ id }) => {
 
-    console.log(id)
+    // console.log(id)
 
     const eliminarSolicitud = () => {
         alert("Eliminar solicitud id: " + id)
