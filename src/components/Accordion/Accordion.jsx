@@ -20,7 +20,7 @@ const Accordion = ({ title, items, link, setLatlng }) => {
                                 <div key={index}>
                                     <h5>{item.local_donacion}</h5>
                                     Dirección: {item.direccion} <br />
-                                    Horario: {item.hora_apertura ? item.hora_apertura + ':00hs' : '00:00'} <br /><br />
+                                    Horario: {item.hora_apertura ? item.hora_apertura + ':00hs' : '00:00'} a {item.hora_cierre ? item.hora_cierre + ':00hs' : '00:00'}<br /><br />
                                     <button className="btn btn-secondary  me-3" onClick={() => handleClick(item.latitud, item.longitud)}>Ver Más</button>
                                     <a href={link + item.latitud + '%2C' + item.longitud} target="_blank" rel="noreferrer" >Ver en Google Maps</a>
                                     <hr />

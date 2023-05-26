@@ -34,34 +34,6 @@ const PuntosDonacion = () => {
 
 			{locales && <Map locales={locales} latlng={latlng}></Map>}
 
-			{/* {center &&
-				(<MapContainer center={center} zoom={ZOOM_LEVEL} scrollWheelZoom={false}>
-					<TileLayer
-						attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-						url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-					/>
-
-					{locales && locales.map((item, index) => (
-						<Marker key={index} position={[item.latitud, item.longitud]}>
-							<Popup>
-
-								<span className="fw-bold">{item.local_donacion}</span> <br />
-
-								{item.direccion ? <>{item.direccion} <br /> </> : ''}
-
-								Horario : {item.hora_apertura ? item.hora_apertura + ':00 ' : '00:00 '} a {item.hora_cierre ? item.hora_cierre + ':00 ' : '00:00'} <br />
-
-								<a target="_blank" rel="noreferrer" href={link + item.latitud + '%2C' + item.longitud}>Ver en Google Maps</a>
-							</Popup>
-						</Marker>
-					))}
-					<LocationMarker />
-				</MapContainer>)
-			} */}
-
-
-
-
 		</div>
 	)
 }

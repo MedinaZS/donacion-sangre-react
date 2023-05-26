@@ -5,8 +5,8 @@ import { useMap } from "react-leaflet"
 const MapFly = ({ latlng }) => {
     const map = useMap()
     useEffect(() => {
-        if(latlng)map.flyTo(latlng, map.getZoom())
-    }, [latlng])
+        if(latlng) map.flyTo(latlng, map.getZoom())
+    }, [latlng, map])
     
     return null
 }
