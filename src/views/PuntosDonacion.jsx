@@ -17,6 +17,7 @@ const PuntosDonacion = () => {
 				let data = response.data.data;
 				// console.log(data)
 				setLocales(data)
+				
 			})
 			.catch(error => console.log("Error", error))
 	}, [])
@@ -32,7 +33,7 @@ const PuntosDonacion = () => {
 			<Accordion title={"Ver todos los puntos"} items={locales} link={link} setLatlng={setLatlng} />
 			<br />
 
-			{locales && <Map locales={locales} latlng={latlng}></Map>}
+			{locales && <Map locales={locales} latlng={latlng} link={link}></Map>}
 
 		</div>
 	)

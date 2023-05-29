@@ -2,26 +2,20 @@ import { useEffect, useState } from 'react'
 import { MapContainer, Marker, Popup, TileLayer, useMapEvents } from 'react-leaflet'
 import MapFly from './MapFly'
 
-const Map = ({ locales, latlng }) => {
+const Map = ({ locales, latlng, link }) => {
 
-    // console.log(locales)
     const ZOOM_LEVEL = 15
 
     const [center, setCenter] = useState(null)
 
-    const link = 'https://www.google.com/maps/search/?api=1&query='
-
 
     useEffect(() => {
-
         if (locales) {
             console.log(locales)
             let position = [locales[0].latitud, locales[0].longitud]
             // console.log(position)
             setCenter(position)
         }
-
-
     }, [locales])
    
     function LocationMarker() {
@@ -39,14 +33,10 @@ const Map = ({ locales, latlng }) => {
 
         return position === null ? null : (
             <Marker position={position}>
-                <Popup>You are here</Popup>
+                <Popup>Estas aquí</Popup>
             </Marker>
         )
     }
-
-   
-
-
 
 
     return (

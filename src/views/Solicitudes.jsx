@@ -10,10 +10,9 @@ const Solicitudes = () => {
         fetch("http://192.168.16.90:8000/api/solicitudes")
             .then((res) => res.json())
             .then((data) => {
-                console.log(data.data);
+                // console.log(data.data);
                 setListaSolicitudes(data.data)
             });
-
     }, [])
 
 
