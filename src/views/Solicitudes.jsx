@@ -2,17 +2,20 @@ import { useEffect, useState } from "react";
 import CardList from "../components/CardList"
 import FiltroSolicitudes from "../components/FiltroSolicitudes";
 import PageTitle from "../components/PageTitle";
+import axios from "axios";
+import { IP_DIRECTION } from "../helpers/utility";
 
 const Solicitudes = () => {
     const [listaSolicitudes, setListaSolicitudes] = useState([])
 
     useEffect(() => {
-        fetch("http://192.168.16.90:8000/api/solicitudes")
-            .then((res) => res.json())
-            .then((data) => {
-                // console.log(data.data);
-                setListaSolicitudes(data.data)
-            });
+        axios.get(IP_DIRECTION + "/api/solicitudes")
+            .then(response => {
+                let data = response.data.data;
+                // console.log(data)
+                setListaSolicitudes(data)
+            })
+            .catch(error => console.log("Error", error))
     }, [])
 
 

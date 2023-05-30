@@ -35,3 +35,11 @@
 
 
 
+
+
+#login-image{
+/* background-image: url(https://res.cloudinary.com/dhzoxdo6q/image/upload/v1685459504/Roshka/Baldwin-1-10-Reasons-to-Donate-Blood_z7xkde.jpg); */
+background-image: url(https://res.cloudinary.com/dhzoxdo6q/image/upload/v1685460949/donacion-sangre/constant-need-blood_1_i99ddi.png);
+background-position: center;
+background-size: cover;
+}

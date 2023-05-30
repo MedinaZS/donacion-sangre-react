@@ -3,7 +3,7 @@
 const Footer = () => {
     return (
         <div className="container-fluid px-5 mt-auto">
-            <footer className="d-flex flex-wrap justify-content-between align-items-center p-3 border-top">
+            <footer className="d-flex flex-wrap justify-content-between align-items-center p-2 border-top">
                 <div className="col-md-4 d-flex align-items-center">
                     <a href="/"
                         className="me-2 mb-md-0 text-body-secondary text-decoration-none d-flex align-items-center "><i

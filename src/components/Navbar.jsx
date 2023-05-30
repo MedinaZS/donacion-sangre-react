@@ -1,6 +1,4 @@
-// import React from 'react'
-
-import { NavLink } from "react-router-dom"
+import { Link, NavLink } from "react-router-dom"
 
 const Navbar = () => {
 
@@ -11,9 +9,9 @@ const Navbar = () => {
     ]
 
     return (
-        <nav className="navbar navbar-expand-lg border-bottom py-2 px-3 bg-danger">
+        <nav className="navbar navbar-expand-lg border-bottom py-2  px-3 px-lg-5 bg-danger navbar-dark">
             <div className="container-fluid p-0">
-                <a href="#" className="navbar-brand text-white">
+                <a href="#" className="navbar-brand">
                     <i className="fs-3 bi bi-heart-pulse-fill me-1"></i>
                     <span className="fs-3 d-none d-sm-inline">Donación de Sangre</span>
                 </a>
@@ -33,8 +31,9 @@ const Navbar = () => {
                                 <NavLink to={link.url} className="nav-link rounded-2"> {link.text}</NavLink>
                             </li>
                         ))}
-                        
-                        <button className="btn btn-outline-light ms-3">Login</button>
+
+                        <Link to={"/login"} className="btn btn-light text-danger fw-bold ms-lg-3 mt-4 mt-lg-0 d-inline">Iniciar Sesión</Link>
+
                     </ul>
                 </div>
             </div>

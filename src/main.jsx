@@ -9,8 +9,9 @@ import PuntosDonacion from './views/PuntosDonacion';
 import Profile from './views/Profile';
 import Login from './views/Login';
 import Certificados from './views/Certificados';
+import Register from './views/Register';
 
-// You can do this:
+
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<Root />}>
@@ -18,6 +19,7 @@ const router = createBrowserRouter(
       <Route path={APP_ROUTES.PUNTOS_DE_DONACION} element={<PuntosDonacion />} />
       <Route path={APP_ROUTES.PROFILE} element={<Profile />} />
       <Route path={APP_ROUTES.LOGIN} element={<Login />} />
+      <Route path={APP_ROUTES.REGISTER} element={<Register />} />
       <Route path={APP_ROUTES.CERTIFICADOS} element={<Certificados />} />
       <Route path="*" element={<p className='text-center fs-1 my-auto'>404 Path not resolved</p>} />
     </Route>

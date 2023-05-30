@@ -4,6 +4,7 @@ import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import Accordion from "../components/Accordion/Accordion";
 import Map from "../components/Map/Map";
+import { IP_DIRECTION } from "../helpers/utility";
 
 const PuntosDonacion = () => {
 
@@ -12,7 +13,7 @@ const PuntosDonacion = () => {
 	const link = 'https://www.google.com/maps/search/?api=1&query='
 
 	useEffect(() => {
-		axios.get("http://192.168.16.90:8000/api/locales")
+		axios.get(IP_DIRECTION + "/api/locales")
 			.then(response => {
 				let data = response.data.data;
 				// console.log(data)
@@ -27,7 +28,7 @@ const PuntosDonacion = () => {
 
 
 	return (
-		<div className="container">
+		<div>
 			<PageTitle title={"Puntos de Donación"} />
 
 			<Accordion title={"Ver todos los puntos"} items={locales} link={link} setLatlng={setLatlng} />
