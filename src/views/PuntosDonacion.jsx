@@ -4,7 +4,7 @@ import "leaflet/dist/leaflet.css";
 import axios from "axios";
 import Accordion from "../components/Accordion/Accordion";
 import Map from "../components/Map/Map";
-import { IP_DIRECTION } from "../helpers/utility";
+import { API_ROUTES } from "../helpers/utility";
 
 const PuntosDonacion = () => {
 
@@ -13,7 +13,7 @@ const PuntosDonacion = () => {
 	const link = 'https://www.google.com/maps/search/?api=1&query='
 
 	useEffect(() => {
-		axios.get(IP_DIRECTION + "/api/locales")
+		axios.get(API_ROUTES.PUNTOS_DE_DONACION)
 			.then(response => {
 				let data = response.data.data;
 				// console.log(data)

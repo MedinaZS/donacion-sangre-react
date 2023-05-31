@@ -3,13 +3,13 @@ import CardList from "../components/CardList"
 import FiltroSolicitudes from "../components/FiltroSolicitudes";
 import PageTitle from "../components/PageTitle";
 import axios from "axios";
-import { IP_DIRECTION } from "../helpers/utility";
+import { API_ROUTES } from "../helpers/utility";
 
 const Solicitudes = () => {
     const [listaSolicitudes, setListaSolicitudes] = useState([])
 
     useEffect(() => {
-        axios.get(IP_DIRECTION + "/api/solicitudes")
+        axios.get(API_ROUTES.SOLICITUDES)
             .then(response => {
                 let data = response.data.data;
                 // console.log(data)
@@ -21,7 +21,7 @@ const Solicitudes = () => {
 
     return (
         <>
-            <PageTitle title={"Solicitudes"}>
+            <PageTitle title={"Solicitudes"} >
                 <FiltroSolicitudes />
             </PageTitle>
             <CardList listaSolicitudes={listaSolicitudes} />

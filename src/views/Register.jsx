@@ -2,12 +2,9 @@ import { useState } from "react"
 import { toast } from "react-hot-toast"
 import { Link } from "react-router-dom"
 import AutenticationCard from "../components/AutenticationCard"
+import { DatePicker } from "@mui/x-date-pickers"
 
-import DatePicker from "react-datepicker";
-import "react-datepicker/dist/react-datepicker.css";
-import { registerLocale } from "react-datepicker";
-import es from 'date-fns/locale/es';
-registerLocale('es', es)
+
 
 const Register = () => {
 
@@ -26,7 +23,8 @@ const Register = () => {
 
 
     const message = "Por favor intente de nuevo";
-    const pattern = /\S+@\S+\.\S+/
+    const emailPattern = /\S+@\S+\.\S+/
+    const numberPattern = /^\d+$/
     const minPasswordLenght = 8;
 
     const onSubmitHandler = (event) => {
@@ -38,65 +36,63 @@ const Register = () => {
 
     }
 
+    const isEmpty = (str) => {
+        return str.trim() == ''
+    }
+
     const validateFields = () => {
-        let noError = true;
         toast.dismiss()
+        let noError = true;
         let timeout = 0;
+        const delay = 300;
 
-        if (nombres.trim() == '') {
-            timeout += 200;
+
+        if (isEmpty(nombres)) {
+            timeout += delay;
             setTimeout(() => { toast.error("Nombres inválidos. " + message) }, timeout);
-            noError = false;
         }
-        if (apellidos.trim() == '') {
-            timeout += 200;
+        if (isEmpty(apellidos)) {
+            timeout += delay;
             setTimeout(() => { toast.error("Apellidos inválidos. " + message) }, timeout);
-            noError = false;
         }
-        if (cedulaIdentidad.trim() == '') {
-            timeout += 200;
+        if (isEmpty(cedulaIdentidad) | !numberPattern.test(cedulaIdentidad)) {
+            timeout += delay;
             setTimeout(() => { toast.error("Cedula de Identidad inválida. " + message) }, timeout);
-            noError = false;
         }
-        if (sexo.trim() == '') {
-            timeout += 200;
+        if (isEmpty(sexo)) {
+            timeout += delay;
             setTimeout(() => { toast.error("Sexo inválido. " + message) }, timeout);
-            noError = false;
         }
-        if (fechaNacimiento.trim() == '') {
-            timeout += 200;
+        if (fechaNacimiento=='') {
+            timeout += delay;
             setTimeout(() => { toast.error("Fecha de nacimiento inválida. " + message) }, timeout);
-            noError = false;
         }
-
-        if (email.trim() == '' || !pattern.test(email)) {
-            timeout += 200;
+        if (isEmpty(email) || !emailPattern.test(email)) {
+            timeout += delay;
             setTimeout(() => { toast.error("Email inválido. " + message) }, timeout);
-            noError = false;
         }
-        if (password.trim() == '' || password.length < minPasswordLenght) {
-            timeout += 200;
+        if (isEmpty(password) || password.length < minPasswordLenght) {
+            timeout += delay;
             setTimeout(() => { toast.error("Contraseña inválida. " + message) }, timeout);
-            noError = false;
         }
-        if (confirmPassword.trim() == '' || confirmPassword.length < minPasswordLenght ) {
-            timeout += 200;
+        if (isEmpty(confirmPassword) || confirmPassword.length < minPasswordLenght) {
+            timeout += delay;
             setTimeout(() => { toast.error("Confirmar contraseña inválida. " + message) }, timeout);
-            noError = false;
         }
         if (confirmPassword != password) {
-            timeout += 200;
+            timeout += delay;
             setTimeout(() => { toast.error("Las contraseñas no coinciden. " + message) }, timeout);
-            noError = false;
         }
 
+        if (timeout != 0) noError = false
 
         return noError
     }
 
-    
+
 
     const handleInputChange = (event) => {
+        // date.toLocaleDateString("es-PY")
         const { id, value } = event.target;
         switch (id) {
             case "nombres": setNombres(value); break;
@@ -106,8 +102,6 @@ const Register = () => {
             case "email": setEmail(value); break;
             case "password": setPassword(value); break;
             case "confirmPassword": setConfirmPassword(value); break;
-
-
             default:
                 break;
         }
@@ -139,8 +133,8 @@ const Register = () => {
                     <label htmlFor="sexo" className="form-label">Sexo</label>
                     <select id="sexo" className="form-select" onChange={handleInputChange} defaultValue={''}>
                         <option value='' disabled>Seleccione..</option>
-                        <option value='Femenino'>Femenino</option>
-                        <option value='Masculino'>Masculino</option>
+                        <option value='F'>Femenino</option>
+                        <option value='M'>Masculino</option>
                     </select>
                 </div>
             </div>
@@ -148,7 +142,8 @@ const Register = () => {
             <div className="row row-cols-lg-2">
                 <div className='mb-2'>
                     <label htmlFor="fechaNacimeinto" className="form-label">Fecha de Nacimiento</label>
-                    <DatePicker type='date' locale={'es'} className="form-control" selected={fechaNacimiento} onChange={(date) =>  console.log(date.toLocaleString())} />
+                    <DatePicker className="form-control" disableFuture
+                        onChange={(newValue) => setFechaNacimiento(newValue)} format="DD/MM/YYYY" slotProps={{ textField: { size: 'small' } }} />
                 </div>
 
                 <div className='mb-2'>
@@ -162,15 +157,15 @@ const Register = () => {
                 <div className='mb-2'>
                     <label htmlFor="password" className="form-label">Contraseña</label>
                     <div className="input-group">
-                        <input id="password" className="form-control border-end-0" type={viewPassword ? "text" : "password"}  onChange={handleInputChange} />
-                        <span className="input-group-text bg-white"><i className={"bi bi-eye" + (viewPassword ? '-slash' : '')} onClick={()=>setViewPassword(!viewPassword)}></i></span>
+                        <input id="password" className="form-control border-end-0" type={viewPassword ? "text" : "password"} onChange={handleInputChange} />
+                        <span className="input-group-text bg-white"><i className={"bi bi-eye" + (viewPassword ? '-slash' : '')} onClick={() => setViewPassword(!viewPassword)}></i></span>
                     </div>
                 </div>
                 <div>
                     <label htmlFor="confirmPassword" className="form-label">Confirmar contraseña</label>
                     <div className="input-group">
                         <input id="confirmPassword" className="form-control border-end-0" type={viewConfirmPassword ? "text" : "password"} onChange={handleInputChange} />
-                        <span className="input-group-text bg-white"><i className={"bi bi-eye" + (viewConfirmPassword ? '-slash' : '')} onClick={()=>setViewConfirmPassword(!viewConfirmPassword)}></i></span>
+                        <span className="input-group-text bg-white"><i className={"bi bi-eye" + (viewConfirmPassword ? '-slash' : '')} onClick={() => setViewConfirmPassword(!viewConfirmPassword)}></i></span>
                     </div>
                 </div>
             </div>
@@ -182,7 +177,7 @@ const Register = () => {
             </div>
 
 
-            <p className="text-center my-3">¿Ya una cuenta?
+            <p className="text-center my-3">¿Ya tienes una cuenta?
                 <Link to={'/login'} className="text-danger"> Inicia sesión</Link>
             </p>
 

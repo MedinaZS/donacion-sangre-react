@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { toast } from "react-hot-toast"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import AutenticationCard from "../components/AutenticationCard"
+import axios from "axios"
+import { API_ROUTES, APP_ROUTES } from "../helpers/utility"
 
 
 const Login = () => {
@@ -11,13 +13,21 @@ const Login = () => {
 	const [password, setPassword] = useState('')
 	const message = "Por favor intente de nuevo";
 	const pattern = /\S+@\S+\.\S+/
-	const minPasswordLenght = 8;
+	const minPasswordLenght = 0;
+
+	const navigate = useNavigate()
 
 	const onSubmitHandler = (event) => {
 		event.preventDefault();
 
 		if (validateFields()) {
-			toast.success("Validado")
+
+			axios.post(API_ROUTES.LOGIN, { email, password })
+				.then(response => {
+					console.log(response.data)
+					navigate(APP_ROUTES.SOLICITUDES)
+				})
+				.catch(error => console.log(error))
 		}
 
 	}

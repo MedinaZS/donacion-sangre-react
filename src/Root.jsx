@@ -6,6 +6,10 @@ import { Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { APP_ROUTES } from './helpers/utility';
 import { Toaster } from 'react-hot-toast';
 
+import { LocalizationProvider } from '@mui/x-date-pickers';
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
+import 'dayjs/locale/es';
+
 function Root() {
 
   const navigate = useNavigate();
@@ -23,7 +27,9 @@ function Root() {
       <Navbar />
       <div className='container h-100'>
         <div><Toaster /></div>
-        <Outlet />
+        <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale='es'>
+          <Outlet />
+        </LocalizationProvider>
       </div>
       <Footer />
     </div >

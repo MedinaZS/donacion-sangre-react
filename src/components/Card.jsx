@@ -3,7 +3,7 @@
 import DeleteButton from "./DeleteButton"
 import ShareButton from "./ShareButton"
 
-const Card = ({ solicitud }) => {
+const Card = ({ solicitud, certificado }) => {
 
     const type = ["A+", "A-", "B+", "B-", "O+", "O-", "AB-", "AB+"]
     const iconSrc = "https://res.cloudinary.com/dhzoxdo6q/image/upload/donacion-sangre/" + type[solicitud.tipo_sangre - 1] + ".png"
