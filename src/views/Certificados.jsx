@@ -5,46 +5,31 @@ import { API_ROUTES } from "../helpers/utility";
 import CardList from "../components/CardList";
 
 const Certificados = () => {
-  const data = [
-    {
-      "id": 111,
-      "fecha_donacion": "2022-11-22",
-      "user": {
-        "id": 47,
-        "name": "M",
-        "surname": "Lugo",
-        "fecha_nacimiento": "1998-12-09",
-        "email": "asd@gmail.com",
-        "email_verified_at": null,
-        "nro_cedula": "127645342",
-        "created_at": "2022-12-28T15:40:53.000000Z",
-        "updated_at": "2023-05-31T14:39:45.000000Z",
-        "sexo": "M",
-        "ult_vez_donado": "2022-11-22"
-      },
-      "local_donacion": "EL CANTARO"
-    }
-  ]
+ 
+  const [listaCertificados, setListaCertificados] = useState(null)
 
-  const [listaCertificados, setListaCertificados] = useState(data)
-
-  const token = "355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ"
+  const token = '355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ'
 
   useEffect(() => {
-
-    axios.get(API_ROUTES.CERTIFICADOS, {}, {headers: {'Authorization': `Bearer ${token}`}})
+    axios.get(API_ROUTES.CERTFICADOS, {
+        headers: {
+          Authorization: `Bearer ${token}`
+        }
+      })
       .then(response => {
-        // let data = response.data.data;
-        console.log(response)
-        // setListaCertificados(data)
+        let data = response.data.data;
+        console.log(data)
+        setListaCertificados(data)
       })
       .catch(error => console.log("Error", error))
   }, [])
 
+  
+
   return (
     <>
-      <PageTitle title={"Certificados"} />
-      {/* <CardList listaCertificados={listaCertificados} /> */}
+      <PageTitle title={"Certificados"} icon={'bi-plus'} href={'/crear-certificado'}/>
+      <CardList listaCertificados={listaCertificados} />
     </>
   )
 }
