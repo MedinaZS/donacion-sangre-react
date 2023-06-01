@@ -1,13 +1,15 @@
 import { useEffect, useState } from "react"
 import FormCard from "../components/FormCard"
-import { Link } from "react-router-dom"
 import axios from "axios"
-import { API_ROUTES } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, getTokenFromLocalStorage } from "../helpers/utility"
 import { toast } from "react-hot-toast"
 import { DatePicker } from "@mui/x-date-pickers"
+import { useNavigate } from "react-router-dom"
 
 
 const CrearSolicitud = () => {
+    const navigate = useNavigate()
+
     const [nombreApellido, setNombreApellido] = useState('')
     const [cedulaIdentidad, setCedulaIdentidad] = useState('')
     const [tipoSangre, setTipoSangre] = useState('')
@@ -15,7 +17,7 @@ const CrearSolicitud = () => {
     const [volumen, setVolumen] = useState('')
     const [fechaLimite, setFechaLimite] = useState('')
     const [telefono, setTelefono] = useState('')
-    const [descripcion, setDescripcion] = useState('')
+    const [solicitud, setSolicitud] = useState('')
 
     const [listaEstablecimientos, setListaEstablecimientos] = useState(null)
 
@@ -38,12 +40,42 @@ const CrearSolicitud = () => {
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
-        // console.log(nombreApellido,cedulaIdentidad,tipoSangre,establecimiento,volumen,fechaLimite,telefono,descripcion)
 
         if (validateFields()) {
-            toast.success("Validado")
+            // toast.success("Validado")
+
+            const date = fechaLimite.$d
+            const fechaString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+
+            const data = {
+                solicitud,
+                fecha_limite: fechaString,
+                volumenes_necesarios: volumen,
+                nombre_apellido_donatario: nombreApellido,
+                cedula_donatario: cedulaIdentidad,
+                telefono_contacto: telefono,
+                tipo_sangre: tipoSangre,
+                establecimiento: establecimiento
+            }
+            // toast.success("Solicitud creada con éxito")
+            saveToDatabase(data)
         }
 
+    }
+
+    const saveToDatabase = (data) => {
+        const token = getTokenFromLocalStorage()
+
+        axios.post(API_ROUTES.CREAR_SOLICITUD, data, {
+            headers: {
+                Authorization: `Bearer ${token}`
+            }
+        }).then(response => {
+            console.log(response)
+            toast.success("Solicitud creada con éxito")
+            navigate(APP_ROUTES.SOLICITUDES)
+        })
+            .catch(error => console.log(error))
     }
 
     const isEmpty = (str) => {
@@ -85,12 +117,12 @@ const CrearSolicitud = () => {
             timeout += delay;
             setTimeout(() => { toast.error("Teléfono inválido ingrese solo números. " + message) }, timeout);
         }
-        if (isEmpty(descripcion)) {
+        if (isEmpty(solicitud)) {
             timeout += delay;
             setTimeout(() => { toast.error("Descripcion inválida. " + message) }, timeout);
         }
 
-        
+
         if (timeout != 0) noError = false
 
         return noError
@@ -100,7 +132,8 @@ const CrearSolicitud = () => {
 
     const handleInputChange = (event) => {
         // date.toLocaleDateString("es-PY")
-        const { id, value } = event.target;
+        let { id, value } = event.target;
+        value = value.trim();
         switch (id) {
             case "nombreApellido": setNombreApellido(value); break;
             case "cedulaIdentidad": setCedulaIdentidad(value); break;
@@ -108,7 +141,7 @@ const CrearSolicitud = () => {
             case "establecimiento": setEstablecimiento(value); break;
             case "volumen": setVolumen(value); break;
             case "telefono": setTelefono(value); break;
-            case "descripcion": setDescripcion(value); break;
+            case "solicitud": setSolicitud(value); break;
             default:
                 break;
         }
@@ -135,7 +168,7 @@ const CrearSolicitud = () => {
                     <select id="tipoSangre" className="form-select" onChange={handleInputChange} defaultValue={''}>
                         <option value='' disabled>Seleccione..</option>
                         {type && type.map((item, index) => (
-                            <option key={index} value={item}>{item}</option>
+                            <option key={index} value={index + 1}>{item}</option>
                         ))}
                     </select>
                 </div>
@@ -147,7 +180,7 @@ const CrearSolicitud = () => {
                     <select id="establecimiento" className="form-select" onChange={handleInputChange} defaultValue={''}>
                         <option value='' disabled>Seleccione..</option>
                         {listaEstablecimientos && listaEstablecimientos.map((item, index) => (
-                            <option key={index} value={item.id}>{item.local_donacion}</option>
+                            <option key={index} value={item.local_donacion}>{item.local_donacion}</option>
                         ))}
                     </select>
                 </div>
@@ -174,8 +207,8 @@ const CrearSolicitud = () => {
             </div>
 
             <div className="mb-3">
-                <label htmlFor="descripcion" className="form-label">Descripción</label>
-                <textarea className="form-control" id="descripcion" cols="30" rows="3" onChange={handleInputChange}></textarea>
+                <label htmlFor="solicitud" className="form-label">Descripción</label>
+                <textarea className="form-control" id="solicitud" cols="30" rows="3" onChange={handleInputChange}></textarea>
             </div>
 
             <div className="d-grid pt-3 mb-4">

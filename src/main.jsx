@@ -6,11 +6,13 @@ import { APP_ROUTES } from './helpers/utility.js';
 import Root from './Root.jsx';
 import Solicitudes from './views/Solicitudes';
 import PuntosDonacion from './views/PuntosDonacion';
-import Profile from './views/Profile';
+import Profile from './views/Perfil';
 import Login from './views/Login';
 import Certificados from './views/Certificados';
 import SingUp from './views/SingUp';
 import CrearSolicitud from './views/CrearSolicitud';
+import CrearCertificado from './views/CrearCertificado';
+import Perfil from './views/Perfil';
 
 
 const router = createBrowserRouter(
@@ -23,6 +25,8 @@ const router = createBrowserRouter(
       <Route path={APP_ROUTES.SIGN_UP} element={<SingUp />} />
       <Route path={APP_ROUTES.CERTIFICADOS} element={<Certificados />} />
       <Route path={APP_ROUTES.CREAR_SOLICITUD} element={<CrearSolicitud />} />
+      <Route path={APP_ROUTES.CREAR_CERTIFICADO} element={<CrearCertificado />} />
+      <Route path={APP_ROUTES.MI_PERFIL} element={<Perfil />} />
       <Route path="*" element={<p className='text-center fs-1 my-auto'>404 Path not resolved</p>} />
     </Route>
   )

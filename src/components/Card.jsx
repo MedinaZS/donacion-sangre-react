@@ -16,7 +16,7 @@ const Card = ({ solicitud, certificado }) => {
                 {/* Header */}
                 <div className={"card-header border-danger border-3 py-3 text-white rounded-top-4 bg-danger opacity-5 " + (solicitud && 'd-flex justify-content-between align-items-center ')}>
                     <h4 className={solicitud ? "text-start" : 'text-center'}>{solicitud ? solicitud.nombre_apellido_donatario : "Certificado Donación"}</h4>
-                    {solicitud && <div className="fs-5">
+                    {(solicitud ) && <div className="fs-5">
                         <DeleteButton id={solicitud.id} />
                         <ShareButton solicitud={solicitud} />
                     </div>}
@@ -25,28 +25,28 @@ const Card = ({ solicitud, certificado }) => {
 
                 <div className="card-body text-start ">
                     <p className="d-flex justify-content-between">
-                        {solicitud ? 'Teléfono' : 'Establecimiento'}:
+                        <span className="fw-bold">{solicitud ? 'Teléfono' : 'Establecimiento'}:</span>
                         <span>{solicitud ? solicitud.telefono_contacto : certificado.local_donacion}</span>
                     </p>
                     <p className="d-flex justify-content-between">
-                        {solicitud ? 'C.I' : 'Apellido'}:
+                        <span className="fw-bold">{solicitud ? 'C.I' : 'Apellido'}:</span>
                         <span>{solicitud ? solicitud.cedula_donatario : certificado.user.surname}</span>
                     </p>
                     <p className="d-flex justify-content-between">
-                        {solicitud ? 'Lugar de donación' : 'Nombre'}:
+                        <span className="fw-bold"> {solicitud ? 'Lugar de donación' : 'Nombre'}:</span>
                         <span>{solicitud ? solicitud.establecimiento : certificado.user.name}</span>
                     </p>
                     <p className="d-flex justify-content-between">
-                        {solicitud ? 'RH' : 'Sexo'}:
+                        <span className="fw-bold">{solicitud ? 'RH' : 'Sexo'}:</span>
                         <span>{solicitud ? <img className='icon-blood-type' src={iconSrc}></img> : certificado.user.sexo}</span>
 
                     </p>
                     <p className="d-flex justify-content-between">
-                        {solicitud ? 'Volúmenes' : 'Numero de Cedula'}:
+                        <span className="fw-bold">{solicitud ? 'Volúmenes' : 'Numero de Cedula'}:</span>
                         <span>{solicitud ? solicitud.volumenes_necesarios : certificado.user.nro_cedula}</span>
                     </p>
                     <p className="d-flex justify-content-between">
-                        {solicitud ? 'Fecha Limite' : 'Fecha de Donacion'}:
+                        <span className="fw-bold">{solicitud ? 'Fecha Limite' : 'Fecha de Donacion'}:</span>
                         <span>{solicitud ? solicitud.fecha_limite : certificado.fecha_donacion}</span>
                     </p>
                 </div>
