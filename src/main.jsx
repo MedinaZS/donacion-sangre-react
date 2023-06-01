@@ -9,7 +9,8 @@ import PuntosDonacion from './views/PuntosDonacion';
 import Profile from './views/Profile';
 import Login from './views/Login';
 import Certificados from './views/Certificados';
-import Register from './views/Register';
+import SingUp from './views/SingUp';
+import CrearSolicitud from './views/CrearSolicitud';
 
 
 const router = createBrowserRouter(
@@ -19,8 +20,9 @@ const router = createBrowserRouter(
       <Route path={APP_ROUTES.PUNTOS_DE_DONACION} element={<PuntosDonacion />} />
       <Route path={APP_ROUTES.PROFILE} element={<Profile />} />
       <Route path={APP_ROUTES.LOGIN} element={<Login />} />
-      <Route path={APP_ROUTES.REGISTER} element={<Register />} />
+      <Route path={APP_ROUTES.SIGN_UP} element={<SingUp />} />
       <Route path={APP_ROUTES.CERTIFICADOS} element={<Certificados />} />
+      <Route path={APP_ROUTES.CREAR_SOLICITUD} element={<CrearSolicitud />} />
       <Route path="*" element={<p className='text-center fs-1 my-auto'>404 Path not resolved</p>} />
     </Route>
   )

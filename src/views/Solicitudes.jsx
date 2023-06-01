@@ -21,7 +21,7 @@ const Solicitudes = () => {
 
     return (
         <>
-            <PageTitle title={"Solicitudes"} >
+            <PageTitle title={"Solicitudes"} icon={'bi-plus'} href={'/crear-solicitud'}>
                 <FiltroSolicitudes />
             </PageTitle>
             <CardList listaSolicitudes={listaSolicitudes} />

@@ -9,7 +9,7 @@ const DeleteButton = ({ id }) => {
     }
 
     return (
-        <a href="#" className="link-dark" onClick={eliminarSolicitud}><i className="bi bi-trash"></i></a>
+        <a href="#" className="link-light me-3" onClick={eliminarSolicitud}><i className="bi bi-trash"></i></a>
     )
 }
 

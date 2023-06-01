@@ -21,7 +21,7 @@ const ShareButton = ({ solicitud }) => {
     link_whatsapp = link_whatsapp.replace('-', '%2D')
 
     return (
-        <a href={link_whatsapp} className="link-danger" ><i className="bi bi-share"></i></a>
+        <a href={link_whatsapp} className="link-light" ><i className="bi bi-share"></i></a>
     )
 }
 

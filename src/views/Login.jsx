@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { toast } from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
-import AutenticationCard from "../components/AutenticationCard"
+import FormCard from "../components/FormCard"
 import axios from "axios"
 import { API_ROUTES, APP_ROUTES } from "../helpers/utility"
 
@@ -57,7 +57,7 @@ const Login = () => {
 	}
 
 	return (
-		<AutenticationCard onSubmitHandler={onSubmitHandler}>
+		<FormCard onSubmitHandler={onSubmitHandler} hasImage={true}>
 			<div className="mb-2">
 				<label htmlFor="email" className="form-label">Email</label>
 				<input type="email" className="form-control" id="email" onChange={(e) => setEmail(e.target.value)} />
@@ -83,7 +83,7 @@ const Login = () => {
 				</p>
 			</div>
 
-		</AutenticationCard>
+		</FormCard>
 
 	)
 }

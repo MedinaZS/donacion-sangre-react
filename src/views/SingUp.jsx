@@ -1,12 +1,12 @@
 import { useState } from "react"
 import { toast } from "react-hot-toast"
 import { Link } from "react-router-dom"
-import AutenticationCard from "../components/AutenticationCard"
+import FormCard from "../components/FormCard" 
 import { DatePicker } from "@mui/x-date-pickers"
 
 
 
-const Register = () => {
+const SingUp = () => {
 
     const [nombres, setNombres] = useState('')
     const [apellidos, setApellidos] = useState('')
@@ -110,7 +110,7 @@ const Register = () => {
 
     return (
 
-        <AutenticationCard onSubmitHandler={onSubmitHandler}>
+        <FormCard onSubmitHandler={onSubmitHandler} hasImage={true}>
             <div className="row row-cols-lg-2">
                 <div className='mb-2'>
                     <label htmlFor="nombres" className="form-label">Nombres</label>
@@ -182,8 +182,8 @@ const Register = () => {
             </p>
 
 
-        </AutenticationCard>
+        </FormCard>
     )
 }
 
-export default Register
+export default SingUp
