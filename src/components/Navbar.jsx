@@ -1,12 +1,23 @@
-import { NavLink } from "react-router-dom"
+import { Link, NavLink, useNavigate } from "react-router-dom"
+import { APP_ROUTES, getUserFromLocalStorage, removeTokenFromLocalStorage, removeUserFromLocalStorage } from "../helpers/utility"
 
 const Navbar = () => {
 
+    const navigate = useNavigate()
+    const user = getUserFromLocalStorage();
+
     const links = [
-        { text: 'Puntos de Donación', url: '/puntos-de-donacion' },
-        { text: 'Solicitudes', url: '/solicitudes' },
-        { text: 'Certificados', url: '/certificados' }
+        { text: 'Puntos de Donación', url: APP_ROUTES.PUNTOS_DE_DONACION },
+        { text: 'Solicitudes', url: APP_ROUTES.SOLICITUDES },
+        { text: 'Certificados', url: APP_ROUTES.CERTIFICADOS }
     ]
+
+    const logout = () => {
+        // Delete from local storage
+        removeTokenFromLocalStorage()
+        removeUserFromLocalStorage()
+        navigate(APP_ROUTES.LOGIN)
+    }
 
     return (
         <nav className="navbar navbar-expand-lg border-bottom py-2  px-3 px-lg-5 bg-danger navbar-dark">
@@ -26,15 +37,31 @@ const Navbar = () => {
                     <div className="me-auto"></div>
                     <ul className="navbar-nav mb-2 mb-lg-0 ">
 
-                        {links.map((link, index) => (
+                        {user && links.map((link, index) => (
                             <li key={index} className="nav-item">
                                 <NavLink to={link.url} className="nav-link rounded-2"> {link.text}</NavLink>
                             </li>
                         ))}
-                        
-                        <NavLink to={"/sign-up"} className="nav-link rounded-2"><i className="bi bi-person-fill me-2"></i>Registrarse</NavLink>
-                       
-                        <NavLink to={"/login"} className="nav-link rounded-2"><i className="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión</NavLink>
+
+                        {!user &&
+                            <>
+                                <NavLink to={APP_ROUTES.SIGN_UP} className="nav-link rounded-2"><i className="bi bi-person-fill me-2"></i>Registrarse</NavLink>
+                                <NavLink to={APP_ROUTES.LOGIN} className="nav-link rounded-2"><i className="bi bi-box-arrow-in-right me-2"></i>Iniciar Sesión</NavLink>
+                            </>
+                        }
+
+                        {user &&
+                            <div className="dropdown ms-lg-4">
+                                <button className="btn btn-light px-4 rounded-pill text-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i className="bi bi-person-fill me-2"></i>
+                                    {user.name}
+                                </button>
+                                <ul className="dropdown-menu dropdown-menu-end">
+                                    <li><Link to={APP_ROUTES.MI_PERFIL} className="dropdown-item">Mi perfil</Link></li>
+                                    <hr />
+                                    <li><button className="dropdown-item" onClick={logout}>Cerrar Sesión</button></li>
+                                </ul>
+                            </div>}
 
                     </ul>
                 </div>

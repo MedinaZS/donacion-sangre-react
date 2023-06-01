@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
 import FormCard from "../components/FormCard"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, setTokenToLocalStorage, setUserToLocalStorage } from "../helpers/utility"
 
 
 const Login = () => {
@@ -24,7 +24,9 @@ const Login = () => {
 
 			axios.post(API_ROUTES.LOGIN, { email, password })
 				.then(response => {
-					console.log(response.data)
+					// console.log(response.data)
+					setTokenToLocalStorage(response.data.token)
+					setUserToLocalStorage(response.data.user)
 					navigate(APP_ROUTES.SOLICITUDES)
 				})
 				.catch(error => console.log(error))
@@ -32,17 +34,21 @@ const Login = () => {
 
 	}
 
+	const isEmpty = (str) => {
+        return str.trim() == ''
+    }
+
 	const validateFields = () => {
 		let noError = true;
 		toast.dismiss()
 		let timeout = 0;
 
-		if (email.trim() == '' || !pattern.test(email)) {
+		if (isEmpty(email) || !pattern.test(email)) {
 			timeout += 200;
 			setTimeout(() => { toast.error("Email inválido. " + message) }, timeout);
 			noError = false;
 		}
-		if (password.trim() == '' || password.length < minPasswordLenght) {
+		if (isEmpty(password) || password.length < minPasswordLenght) {
 			timeout += 200;
 			setTimeout(() => { toast.error("Contraseña inválida. " + message) }, timeout);
 			noError = false;

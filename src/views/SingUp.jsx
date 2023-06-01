@@ -1,8 +1,10 @@
 import { useState } from "react"
 import { toast } from "react-hot-toast"
-import { Link } from "react-router-dom"
-import FormCard from "../components/FormCard" 
+import { Link, useNavigate } from "react-router-dom"
+import FormCard from "../components/FormCard"
 import { DatePicker } from "@mui/x-date-pickers"
+import axios from "axios"
+import { API_ROUTES, APP_ROUTES } from "../helpers/utility"
 
 
 
@@ -27,13 +29,36 @@ const SingUp = () => {
     const numberPattern = /^\d+$/
     const minPasswordLenght = 8;
 
+    const navigate = useNavigate()
+
     const onSubmitHandler = (event) => {
         event.preventDefault();
 
         if (validateFields()) {
             toast.success("Validado")
+
+            const data = {
+                name: nombres,
+                surname: apellidos,
+                password,
+                email,
+                fecha_nacimiento: fechaNacimiento,
+                sexo,
+                nro_cedula: cedulaIdentidad
+            }
+
+            saveToDatabase(data)
         }
 
+    }
+
+    const saveToDatabase = (data) => {
+        axios.post(API_ROUTES.REGISTRO, data)
+            .then(response => {
+                console.log(response.data)
+                navigate(APP_ROUTES.SOLICITUDES)
+            })
+            .catch(error => console.log(error))
     }
 
     const isEmpty = (str) => {
@@ -63,7 +88,7 @@ const SingUp = () => {
             timeout += delay;
             setTimeout(() => { toast.error("Sexo inválido. " + message) }, timeout);
         }
-        if (fechaNacimiento=='') {
+        if (fechaNacimiento == '') {
             timeout += delay;
             setTimeout(() => { toast.error("Fecha de nacimiento inválida. " + message) }, timeout);
         }
