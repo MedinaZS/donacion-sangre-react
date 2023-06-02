@@ -11,7 +11,7 @@ const Perfil = () => {
 
 	const links = [
 		{ text: 'Editar Información', url: APP_ROUTES.EDITAR_PERFIL },
-		{ text: 'Cambiar Contraseña', url: ' APP_ROUTES.SOLICITUDES' }
+		{ text: 'Cambiar Contraseña', url: APP_ROUTES.CAMBIAR_PASSWORD }
 
 	]
 

@@ -185,7 +185,7 @@ const EditarPerfil = () => {
                 </div>
             
                 <div className="d-grid pt-1 my-4">
-                    <button type='submit' className="btn btn-danger btn-block fw-bold" >Registrarse</button>
+                    <button type='submit' className="btn btn-danger btn-block fw-bold" >Editar datos</button>
                 </div>
             
             </FormCard>}
