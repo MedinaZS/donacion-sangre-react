@@ -21,7 +21,7 @@ const CrearCertificado = () => {
         axios.get(API_ROUTES.PUNTOS_DE_DONACION)
             .then(response => {
                 let data = response.data.data;
-                // console.log(data)
+                console.log("Se carga los locales")
                 setListaEstablecimientos(data)
             })
             .catch(error => console.log("Error getting localidades", error))
@@ -101,7 +101,7 @@ const CrearCertificado = () => {
     }
 
     return (
-        <FormCard title={"Crear Certificado"} onSubmitHandler={onSubmitHandler} hasImage={false}>
+        <FormCard title={"Crear Certificado"} onSubmitHandler={onSubmitHandler} hasImage={false} backIcon={true} backHref={APP_ROUTES.CERTIFICADOS}>
 
             <div className='mb-4'>
                 <label htmlFor="fechaNacimiento" className="form-label">Fecha Limite</label>

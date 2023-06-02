@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import FormCard from "../components/FormCard"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, getTokenFromLocalStorage } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, getFormattedDate, getTokenFromLocalStorage } from "../helpers/utility"
 import { toast } from "react-hot-toast"
 import { DatePicker } from "@mui/x-date-pickers"
 import { useNavigate } from "react-router-dom"
@@ -44,12 +44,12 @@ const CrearSolicitud = () => {
         if (validateFields()) {
             // toast.success("Validado")
 
-            const date = fechaLimite.$d
-            const fechaString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
+            // const date = fechaLimite.$d
+            // const fechaString = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate()
 
             const data = {
                 solicitud,
-                fecha_limite: fechaString,
+                fecha_limite: getFormattedDate(fechaLimite.$d),
                 volumenes_necesarios: volumen,
                 nombre_apellido_donatario: nombreApellido,
                 cedula_donatario: cedulaIdentidad,
@@ -125,6 +125,8 @@ const CrearSolicitud = () => {
 
         if (timeout != 0) noError = false
 
+      
+
         return noError
     }
 
@@ -148,7 +150,7 @@ const CrearSolicitud = () => {
     }
 
     return (
-        <FormCard title={"Crear Solicitud"} onSubmitHandler={onSubmitHandler} hasImage={false}>
+        <FormCard title={"Crear Solicitud"} onSubmitHandler={onSubmitHandler} hasImage={false} backIcon={true} backHref={APP_ROUTES.SOLICITUDES}>
 
             <div className='mb-2'>
                 <label htmlFor="nombreApellido" className="form-label">Nombre y Apellido</label>

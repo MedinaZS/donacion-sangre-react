@@ -1,5 +1,5 @@
 import { Link, NavLink, useNavigate } from "react-router-dom"
-import { APP_ROUTES, getUserFromLocalStorage, removeTokenFromLocalStorage, removeUserFromLocalStorage } from "../helpers/utility"
+import { APP_ROUTES, clearLocalStorage, getUserFromLocalStorage } from "../helpers/utility"
 
 const Navbar = () => {
 
@@ -13,9 +13,8 @@ const Navbar = () => {
     ]
 
     const logout = () => {
-        // Delete from local storage
-        removeTokenFromLocalStorage()
-        removeUserFromLocalStorage()
+        // Delete all from local storag
+        clearLocalStorage()
         navigate(APP_ROUTES.LOGIN)
     }
 
@@ -51,15 +50,25 @@ const Navbar = () => {
                         }
 
                         {user &&
-                            <div className="dropdown ms-lg-4">
-                                <button className="btn btn-light px-4 rounded-pill text-danger dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <div className="dropdown mt-4 mt-lg-0 ms-lg-4 ">
+                                <button className="btn btn-light px-4 rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-person-fill me-2"></i>
-                                    {user.name}
+                                    {user.name} {user.surname}
                                 </button>
                                 <ul className="dropdown-menu dropdown-menu-end">
-                                    <li><Link to={APP_ROUTES.MI_PERFIL} className="dropdown-item">Mi perfil</Link></li>
+                                    <li>
+                                        <Link to={APP_ROUTES.MI_PERFIL} className="dropdown-item">
+                                            <i className="bi bi-person-vcard me-3"></i>
+                                            Mi perfil
+                                        </Link>
+                                    </li>
                                     <hr />
-                                    <li><button className="dropdown-item" onClick={logout}>Cerrar Sesión</button></li>
+                                    <li>
+                                        <button className="dropdown-item" onClick={logout}>
+                                            <i className="bi bi-box-arrow-right me-3"></i>
+                                            Cerrar Sesión
+                                        </button>
+                                    </li>
                                 </ul>
                             </div>}
 

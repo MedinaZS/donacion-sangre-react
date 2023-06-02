@@ -11,7 +11,7 @@ const Map = ({ locales, latlng, link }) => {
 
     useEffect(() => {
         if (locales) {
-            console.log(locales)
+            // console.log(locales)
             let position = [locales[0].latitud, locales[0].longitud]
             // console.log(position)
             setCenter(position)
@@ -26,7 +26,7 @@ const Map = ({ locales, latlng, link }) => {
             },
             locationfound(e) {
                 setPosition(e.latlng)
-                console.log(e.latlng)
+                // console.log(e.latlng)
                 map.flyTo(e.latlng, map.getZoom())
             },
         })

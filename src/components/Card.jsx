@@ -10,7 +10,7 @@ const Card = ({ solicitud, certificado }) => {
 
 
     return (
-        <div className={"col d-flex align-items-stretch " + (certificado && 'mx-auto')}>
+        <div className={"col d-flex align-items-stretch"}>
             <div className="card mb-4 rounded-4 shadow w-100 border border-danger">
 
                 {/* Header */}
