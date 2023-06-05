@@ -1,12 +1,14 @@
 // import React from 'react'
 // import { useEffect } from "react"
-import DeleteButton from "./DeleteButton"
-import ShareButton from "./ShareButton"
+import { getUserFromLocalStorage } from "../helpers/utility"
+import DeleteButton from "./Solicitudes/DeleteButton";
+import ShareButton from "./Solicitudes/ShareButton";
 
-const Card = ({ solicitud, certificado }) => {
+const Card = ({ solicitud, certificado, listaSolicitudes, setListaSolicitudes }) => {
 
     const type = ["A+", "A-", "B+", "B-", "O+", "O-", "AB-", "AB+"]
     const iconSrc = (solicitud && "https://res.cloudinary.com/dhzoxdo6q/image/upload/donacion-sangre/" + type[solicitud.tipo_sangre - 1] + ".png")
+    const userId = getUserFromLocalStorage().id;
 
 
     return (
@@ -16,10 +18,13 @@ const Card = ({ solicitud, certificado }) => {
                 {/* Header */}
                 <div className={"card-header border-danger border-3 py-3 text-white rounded-top-4 bg-danger opacity-5 " + (solicitud && 'd-flex justify-content-between align-items-center ')}>
                     <h4 className={solicitud ? "text-start" : 'text-center'}>{solicitud ? solicitud.nombre_apellido_donatario : "Certificado Donación"}</h4>
-                    {(solicitud ) && <div className="fs-5">
-                        <DeleteButton id={solicitud.id} />
-                        <ShareButton solicitud={solicitud} />
-                    </div>}
+
+                    {(solicitud) &&
+                        <div className="fs-5">
+                            {userId == solicitud.creado_por && <DeleteButton id={solicitud.id} listaSolicitudes={listaSolicitudes} setListaSolicitudes={setListaSolicitudes} />}
+                            <ShareButton solicitud={solicitud} />
+                        </div>}
+
                 </div>
 
 

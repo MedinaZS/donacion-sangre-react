@@ -2,7 +2,7 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { API_ROUTES, getTokenFromLocalStorage } from "../helpers/utility";
+import { API_ROUTES, getTokenFromLocalStorage } from "../../helpers/utility";
 
 const FiltroSolicitudes = ({ setListaSolicitudes }) => {
 
