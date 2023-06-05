@@ -5,6 +5,7 @@ import { API_ROUTES, APP_ROUTES, getFormattedDate, getTokenFromLocalStorage } fr
 import { toast } from "react-hot-toast"
 import { DatePicker } from "@mui/x-date-pickers"
 import { useNavigate } from "react-router-dom"
+import BlockButton from "../components/BlockButton"
 
 
 const CrearSolicitud = () => {
@@ -213,9 +214,8 @@ const CrearSolicitud = () => {
                 <textarea className="form-control" id="solicitud" cols="30" rows="3" onChange={handleInputChange}></textarea>
             </div>
 
-            <div className="d-grid pt-3 mb-4">
-                <button type='submit' className="btn btn-danger btn-block fw-bold" >Ingresar</button>
-            </div>
+            <BlockButton title={"Generar Solicitud"}/>
+            
         </FormCard>
     )
 }

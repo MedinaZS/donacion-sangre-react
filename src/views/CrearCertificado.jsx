@@ -5,6 +5,7 @@ import { API_ROUTES, APP_ROUTES, getFormattedDate, getTokenFromLocalStorage } fr
 import { toast } from "react-hot-toast"
 import { DatePicker } from "@mui/x-date-pickers"
 import { useNavigate } from "react-router-dom"
+import BlockButton from "../components/BlockButton"
 
 
 const CrearCertificado = () => {
@@ -21,7 +22,7 @@ const CrearCertificado = () => {
         axios.get(API_ROUTES.PUNTOS_DE_DONACION)
             .then(response => {
                 let data = response.data.data;
-                console.log("Se carga los locales")
+                // console.log("Se carga los locales")
                 setListaEstablecimientos(data)
             })
             .catch(error => console.log("Error getting localidades", error))
@@ -57,7 +58,7 @@ const CrearCertificado = () => {
                 Authorization: `Bearer ${token}`
             }
         }).then(response => {
-            console.log(response)
+            // console.log(response)
             toast.success("Certificado creado con éxito")
             navigate(APP_ROUTES.CERTIFICADOS)
         })
@@ -119,9 +120,8 @@ const CrearCertificado = () => {
                 </select>
             </div>
 
-            <div className="d-grid pt-3 mb-4">
-                <button type='submit' className="btn btn-danger btn-block fw-bold" >Generar Certificado</button>
-            </div>
+            <BlockButton title={"Generar Certificado"}/>
+            
         </FormCard>
     )
 }

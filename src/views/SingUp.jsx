@@ -5,6 +5,7 @@ import FormCard from "../components/FormCard"
 import { DatePicker } from "@mui/x-date-pickers"
 import axios from "axios"
 import { API_ROUTES, APP_ROUTES, getFormattedDate, setTokenToLocalStorage, setUserToLocalStorage } from "../helpers/utility"
+import BlockButton from "../components/BlockButton"
 
 
 
@@ -200,13 +201,10 @@ const SingUp = () => {
 
             <div id="emailHelp" className="form-text mb-2">La contraseña debe de tener minimo 8 caracteres</div>
 
-            <div className="d-grid pt-1 mb-4">
-                <button type='submit' className="btn btn-danger btn-block fw-bold" >Registrarse</button>
-            </div>
-
+            <BlockButton title={"Registrarse"}/>
 
             <p className="text-center my-3">¿Ya tienes una cuenta?
-                <Link to={'/login'} className="text-danger"> Inicia sesión</Link>
+                <Link to={APP_ROUTES.LOGIN} className="text-danger"> Inicia sesión</Link>
             </p>
 
 

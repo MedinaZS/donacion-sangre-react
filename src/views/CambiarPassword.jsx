@@ -1,9 +1,10 @@
-import  { useEffect, useState } from 'react'
+import  { useState } from 'react'
 import FormCard from '../components/FormCard'
 import { useNavigate } from 'react-router-dom'
-import { API_ROUTES, APP_ROUTES, getTokenFromLocalStorage, getUserFromLocalStorage } from '../helpers/utility'
+import { API_ROUTES, APP_ROUTES, getTokenFromLocalStorage } from '../helpers/utility'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
+import BlockButton from '../components/BlockButton'
 
 const CambiarPassword = () => {
 	const [oldPassword, setOldPassword] = useState('')
@@ -108,7 +109,7 @@ const CambiarPassword = () => {
 	}
 
 	return (
-		<FormCard title={"Editar mi perfil"} onSubmitHandler={onSubmitHandler} hasImage={false} backIcon={true} backHref={APP_ROUTES.MI_PERFIL}>
+		<FormCard title={"Cambiar mi Contraseña"} onSubmitHandler={onSubmitHandler} hasImage={false} backIcon={true} backHref={APP_ROUTES.MI_PERFIL}>
 
 			<div className='col-md-10 col-lg-8 mx-auto'>
 				<div className='mb-2'>
@@ -135,9 +136,7 @@ const CambiarPassword = () => {
 				
 				<div id="emailHelp" className="form-text mb-2">Las contraseña debe de tener minimo 8 caracteres</div>
 
-				<div className="d-grid pt-1 my-5">
-                    <button type='submit' className="btn btn-danger btn-block fw-bold" >Editar</button>
-                </div>
+				<BlockButton title={"Actualizar"}/>
 			</div>
 		</FormCard>
 

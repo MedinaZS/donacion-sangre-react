@@ -6,6 +6,7 @@ import axios from "axios"
 import FormCard from "../components/FormCard"
 import { DatePicker } from "@mui/x-date-pickers"
 import dayjs from 'dayjs';
+import BlockButton from "../components/BlockButton"
 
 
 const EditarPerfil = () => {
@@ -184,9 +185,7 @@ const EditarPerfil = () => {
                     </div>
                 </div>
             
-                <div className="d-grid pt-1 my-4">
-                    <button type='submit' className="btn btn-danger btn-block fw-bold" >Editar datos</button>
-                </div>
+                <BlockButton title={"Actualizar perfil"}/>
             
             </FormCard>}
         </>

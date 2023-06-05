@@ -4,6 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import FormCard from "../components/FormCard"
 import axios from "axios"
 import { API_ROUTES, APP_ROUTES, setTokenToLocalStorage, setUserToLocalStorage } from "../helpers/utility"
+import BlockButton from "../components/BlockButton"
 
 
 const Login = () => {
@@ -29,7 +30,13 @@ const Login = () => {
 					setUserToLocalStorage(response.data.user)
 					navigate(APP_ROUTES.SOLICITUDES)
 				})
-				.catch(error => console.log(error))
+				.catch(error => {
+					// console.log(error.response.data)
+					const errorMessage = error.response?.data?.message
+					if (errorMessage) {
+						toast.error(errorMessage)
+					}
+				})
 		}
 
 	}
@@ -78,14 +85,12 @@ const Login = () => {
 				<div className="form-text">La contraseña debe de tener minimo 8 caracteres</div>
 			</div>
 
-			<div className="d-grid pt-1 mb-4">
-				<button type='submit' className="btn btn-danger btn-block fw-bold" >Iniciar Sesión</button>
-			</div>
+			<BlockButton title={"Iniciar Sesión"}/>
 
 			<div className="text-center">
-				<Link to={'/forgot-password'} className="text-danger"> ¿Olvidaste tu contraseña?</Link>
+				<Link to={APP_ROUTES.RESET_PASSWORD} className="text-danger"> ¿Olvidaste tu contraseña?</Link>
 				<p className="my-3">¿Aun no tienes una cuenta?
-					<Link to={'/register'} className="text-danger"> Registrate aquí</Link>
+					<Link to={APP_ROUTES.SIGN_UP} className="text-danger"> Registrate aquí</Link>
 				</p>
 			</div>
 

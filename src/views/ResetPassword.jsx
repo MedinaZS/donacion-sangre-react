@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom'
 import { API_ROUTES, APP_ROUTES, capitalizeFirstLetter } from '../helpers/utility'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
+import BlockButton from '../components/BlockButton'
 
 const ResetPassword = () => {
 
@@ -76,11 +77,8 @@ const ResetPassword = () => {
                 <input type="email" className="form-control" id="email" onChange={(e) => setEmail(e.target.value)} />
             </div>
 
-            <div className="d-grid pt-1 mb-4">
-				<button type='submit' className="btn btn-danger btn-block fw-bold" >Restablecer</button>
-			</div>
+            <BlockButton title={"Reestablecer contraseña"}/>
 
-        
             <div className="text-center">
                 <Link to={'/forgot-password'} className="text-danger"> ¿Olvidaste tu contraseña?</Link>
                 <p className="my-3">¿Aun no tienes una cuenta?

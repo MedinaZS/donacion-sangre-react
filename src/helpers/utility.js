@@ -1,6 +1,7 @@
 export const APP_ROUTES = {
     HOME: '/',
     LOGIN: '/iniciar-sesion',
+    RESET_PASSWORD: '/reset-password',
     MI_PERFIL: '/mi-perfil',
     EDITAR_PERFIL: 'editar-perfil',
     CAMBIAR_PASSWORD: `cambiar-password`,
@@ -19,6 +20,7 @@ const API_URL = 'http://192.168.16.90:8000/api'
 export const API_ROUTES = {
     LOGIN: `${API_URL}/login`,
     REGISTRO: `${API_URL}/registro`,
+    RESET_PASSWORD: `${API_URL}/reset-password`,
     MI_PERFIL: `${API_URL}/user`,
     EDITAR_PERFIL: `${API_URL}/editar-perfil`,
     CAMBIAR_PASSWORD: `${API_URL}/cambiar-password`,
@@ -73,4 +75,8 @@ export const getUserFromLocalStorage = () => {
 
 export const clearLocalStorage = () => {
     localStorage.clear()
+}
+
+export const capitalizeFirstLetter = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
 }
