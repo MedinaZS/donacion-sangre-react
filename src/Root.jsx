@@ -2,8 +2,8 @@ import './App.css'
 import Navbar from './components/Navbar'
 import Footer from './components/Footer'
 import { useEffect } from 'react'
-import { Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { APP_ROUTES } from './helpers/utility';
+import { Outlet, useNavigate } from 'react-router-dom';
+import { APP_ROUTES, getTokenFromLocalStorage } from './helpers/utility';
 import { Toaster } from 'react-hot-toast';
 
 import { LocalizationProvider } from '@mui/x-date-pickers';
@@ -13,11 +13,14 @@ import 'dayjs/locale/es';
 function Root() {
 
   const navigate = useNavigate();
-  const location = useLocation()
 
   useEffect(() => {
-    if (location.pathname == '/')
+    const token = getTokenFromLocalStorage()
+    if (token) {
       navigate(APP_ROUTES.SOLICITUDES)
+    }else{
+      navigate(APP_ROUTES.LOGIN)
+    }
 
   }, [])
 

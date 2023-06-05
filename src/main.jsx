@@ -14,6 +14,7 @@ import EditarPerfil from './views/EditarPerfil';
 import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { APP_ROUTES } from './helpers/utility.js';
 import CambiarPassword from './views/CambiarPassword';
+import ResetPassword from './views/ResetPassword';
 
 
 const router = createBrowserRouter(
@@ -30,6 +31,7 @@ const router = createBrowserRouter(
 
 			<Route path={APP_ROUTES.LOGIN} element={<Login />} />
 			<Route path={APP_ROUTES.SIGN_UP} element={<SingUp />} />
+			<Route path={APP_ROUTES.RESET_PASSWORD} element={<ResetPassword />} />
 			<Route path={APP_ROUTES.CERTIFICADOS} element={<Certificados />} />
 			<Route path={APP_ROUTES.CREAR_SOLICITUD} element={<CrearSolicitud />} />
 			<Route path={APP_ROUTES.CREAR_CERTIFICADO} element={<CrearCertificado />} />
