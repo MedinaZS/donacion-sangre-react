@@ -1,15 +1,13 @@
 // import React from 'react'
 
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, getTokenFromLocalStorage } from "../../helpers/utility"
+import { API_ROUTES, getTokenFromLocalStorage } from "../../helpers/utility"
 import { toast } from "react-hot-toast"
 import Swal from "sweetalert2"
-import { useNavigate } from "react-router-dom"
 
 const DeleteButton = ({ id, listaSolicitudes, setListaSolicitudes }) => {
 
     const token = getTokenFromLocalStorage()
-    const navigate = useNavigate();
 
     const handleClick = () => {
 

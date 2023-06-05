@@ -1,8 +1,8 @@
 import { useState } from "react";
 import CardList from "../components/CardList"
-import FiltroSolicitudes from "../components/FiltroSolicitudes";
 import PageTitle from "../components/PageTitle";
 import EmptyListMessage from "../components/EmptyListMessage";
+import FiltroSolicitudes from '../components/Solicitudes/FiltroSolicitudes'
 import { APP_ROUTES } from "../helpers/utility";
 
 const Solicitudes = () => {
