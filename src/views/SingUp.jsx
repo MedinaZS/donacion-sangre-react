@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import FormCard from "../components/FormCard"
 import { DatePicker } from "@mui/x-date-pickers"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, getFormattedDate, setTokenToLocalStorage, setUserToLocalStorage } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, capitalizeFirstLetter, getFormattedDate, setTokenToLocalStorage, setUserToLocalStorage } from "../helpers/utility"
 import BlockButton from "../components/BlockButton"
 
 
@@ -28,7 +28,6 @@ const SingUp = () => {
     const message = "Por favor intente de nuevo";
     const emailPattern = /\S+@\S+\.\S+/
     const numberPattern = /^\d+$/
-    const minPasswordLenght = 8;
 
     const navigate = useNavigate()
 
@@ -36,7 +35,7 @@ const SingUp = () => {
         event.preventDefault();
 
         if (validateFields()) {
-            toast.success("Validado")
+            // toast.success("Validado")
 
             const data = {
                 name: nombres,
@@ -48,7 +47,7 @@ const SingUp = () => {
                 nro_cedula: cedulaIdentidad
             }
 
-            console.log(data)
+            // console.log(data)
             saveToDatabase(data)
         }
 
@@ -62,7 +61,29 @@ const SingUp = () => {
                 setUserToLocalStorage(response.data.user)
                 navigate(APP_ROUTES.SOLICITUDES)
             })
-            .catch(error => console.log(error))
+            .catch(error => {
+                // console.log(error)
+                const errorsMessage = error.response?.data?.errors
+                if (errorsMessage) {
+                    // console.log(Object.keys(errorsMessage))
+                    handleErrors(Object.keys(errorsMessage))
+                }
+                const cedulaExistente = error.response?.data?.message
+                if (cedulaExistente.toUpperCase().includes('CEDULA')) {
+                    toast.error(cedulaExistente + ' . Por favor intente de nuevo')
+                }
+            })
+    }
+
+    const handleErrors = (errors) => {
+        let timeout = 0;
+        errors.forEach(element => {
+            timeout += 200;
+            setTimeout(() => {
+                toast.error(capitalizeFirstLetter(element) + ' debe ser unico. Por favor intente de nuevo')
+            }, timeout);
+        });
+
     }
 
     const isEmpty = (str) => {
@@ -100,11 +121,11 @@ const SingUp = () => {
             timeout += delay;
             setTimeout(() => { toast.error("Email inválido. " + message) }, timeout);
         }
-        if (isEmpty(password) || password.length < minPasswordLenght) {
+        if (isEmpty(password) || password.length < MIN_PASS_LENGTH) {
             timeout += delay;
             setTimeout(() => { toast.error("Contraseña inválida. " + message) }, timeout);
         }
-        if (isEmpty(confirmPassword) || confirmPassword.length < minPasswordLenght) {
+        if (isEmpty(confirmPassword) || confirmPassword.length < MIN_PASS_LENGTH) {
             timeout += delay;
             setTimeout(() => { toast.error("Confirmar contraseña inválida. " + message) }, timeout);
         }
@@ -199,9 +220,9 @@ const SingUp = () => {
                 </div>
             </div>
 
-            <div id="emailHelp" className="form-text mb-2">La contraseña debe de tener minimo 8 caracteres</div>
+            <div id="emailHelp" className="form-text mb-2">La contraseña debe de tener minimo {MIN_PASS_LENGTH} caracteres</div>
 
-            <BlockButton title={"Registrarse"}/>
+            <BlockButton title={"Registrarse"} />
 
             <p className="text-center my-3">¿Ya tienes una cuenta?
                 <Link to={APP_ROUTES.LOGIN} className="text-danger"> Inicia sesión</Link>

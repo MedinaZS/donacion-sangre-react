@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
 import FormCard from "../components/FormCard"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, setTokenToLocalStorage, setUserToLocalStorage } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, setTokenToLocalStorage, setUserToLocalStorage } from "../helpers/utility"
 import BlockButton from "../components/BlockButton"
 
 
@@ -14,7 +14,6 @@ const Login = () => {
 	const [password, setPassword] = useState('')
 	const message = "Por favor intente de nuevo";
 	const pattern = /\S+@\S+\.\S+/
-	const minPasswordLenght = 0;
 
 	const navigate = useNavigate()
 
@@ -55,7 +54,7 @@ const Login = () => {
 			setTimeout(() => { toast.error("Email inválido. " + message) }, timeout);
 			noError = false;
 		}
-		if (isEmpty(password) || password.length < minPasswordLenght) {
+		if (isEmpty(password) || password.length < MIN_PASS_LENGTH) {
 			timeout += 200;
 			setTimeout(() => { toast.error("Contraseña inválida. " + message) }, timeout);
 			noError = false;
@@ -82,7 +81,7 @@ const Login = () => {
 					<input id="password" className="form-control border-end-0" type={viewPassword ? "text" : "password"} onChange={(e) => setPassword(e.target.value)} />
 					<span className="input-group-text bg-white"><i className={"bi bi-eye" + (viewPassword ? '-slash' : '')} onClick={handleViewPassword}></i></span>
 				</div>
-				<div className="form-text">La contraseña debe de tener minimo 8 caracteres</div>
+				<div className="form-text">La contraseña debe de tener minimo {MIN_PASS_LENGTH} caracteres</div>
 			</div>
 
 			<BlockButton title={"Iniciar Sesión"}/>

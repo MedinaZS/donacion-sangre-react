@@ -1,3 +1,5 @@
+export const MIN_PASS_LENGTH = 3
+
 export const APP_ROUTES = {
     HOME: '/',
     LOGIN: '/iniciar-sesion',
