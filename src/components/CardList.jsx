@@ -1,9 +1,8 @@
 // import React from 'react'
 
-import Card from "./card"
+import Card from "./Card"
 
 const CardList = ({ listaSolicitudes, listaCertificados, setListaSolicitudes }) => {
-
 
   return (
     <>

@@ -3,7 +3,7 @@ import { toast } from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
 import FormCard from "../components/FormCard"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, setTokenToLocalStorage, setUserToLocalStorage } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, setTokenToLocalStorage } from "../helpers/utility"
 import BlockButton from "../components/BlockButton"
 
 
@@ -26,7 +26,7 @@ const Login = () => {
 				.then(response => {
 					// console.log(response.data)
 					setTokenToLocalStorage(response.data.token)
-					setUserToLocalStorage(response.data.user)
+					// setUserToLocalStorage(response.data.user)
 					navigate(APP_ROUTES.SOLICITUDES)
 				})
 				.catch(error => {

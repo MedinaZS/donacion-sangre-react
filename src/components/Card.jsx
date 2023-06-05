@@ -1,6 +1,4 @@
-// import React from 'react'
-// import { useEffect } from "react"
-import { getUserFromLocalStorage } from "../helpers/utility"
+import { useOutletContext } from "react-router-dom";
 import DeleteButton from "./Solicitudes/DeleteButton";
 import ShareButton from "./Solicitudes/ShareButton";
 
@@ -8,7 +6,10 @@ const Card = ({ solicitud, certificado, listaSolicitudes, setListaSolicitudes })
 
     const type = ["A+", "A-", "B+", "B-", "O+", "O-", "AB-", "AB+"]
     const iconSrc = (solicitud && "https://res.cloudinary.com/dhzoxdo6q/image/upload/donacion-sangre/" + type[solicitud.tipo_sangre - 1] + ".png")
-    const userId = getUserFromLocalStorage().id;
+
+    // const userId = getUserFromLocalStorage().id;
+    const user = useOutletContext();
+    let userId = user.user?.id
 
 
     return (

@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom"
 import FormCard from "../components/FormCard"
 import { DatePicker } from "@mui/x-date-pickers"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, capitalizeFirstLetter, getFormattedDate, setTokenToLocalStorage, setUserToLocalStorage } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, capitalizeFirstLetter, getFormattedDate, setTokenToLocalStorage } from "../helpers/utility"
 import BlockButton from "../components/BlockButton"
 
 
@@ -58,7 +58,7 @@ const SingUp = () => {
             .then(response => {
                 // console.log(response.data)
                 setTokenToLocalStorage(response.data.token)
-                setUserToLocalStorage(response.data.user)
+                // setUserToLocalStorage(response.data.user)
                 navigate(APP_ROUTES.SOLICITUDES)
             })
             .catch(error => {

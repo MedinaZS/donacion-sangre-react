@@ -1,10 +1,9 @@
 import { Link, NavLink, useNavigate } from "react-router-dom"
-import { APP_ROUTES, clearLocalStorage, getUserFromLocalStorage } from "../helpers/utility"
+import { APP_ROUTES, clearLocalStorage } from "../helpers/utility"
 
-const Navbar = () => {
+const Navbar = ({ user }) => {
 
     const navigate = useNavigate()
-    const user = getUserFromLocalStorage();
 
     const links = [
         { text: 'Puntos de Donación', url: APP_ROUTES.PUNTOS_DE_DONACION },
@@ -17,6 +16,13 @@ const Navbar = () => {
         clearLocalStorage()
         navigate(APP_ROUTES.LOGIN)
     }
+
+
+    // if (user) {
+
+    // } else {
+
+    // }
 
     return (
         <nav className="navbar navbar-expand-lg border-bottom py-2  px-3 px-lg-5 bg-danger navbar-dark">
@@ -36,11 +42,39 @@ const Navbar = () => {
                     <div className="me-auto"></div>
                     <ul className="navbar-nav mb-2 mb-lg-0 ">
 
-                        {user && links.map((link, index) => (
-                            <li key={index} className="nav-item">
-                                <NavLink to={link.url} className="nav-link rounded-2"> {link.text}</NavLink>
-                            </li>
-                        ))}
+                        {user &&
+
+                            <>
+                                {links.map((link, index) => (
+                                    <li key={index} className="nav-item">
+                                        <NavLink to={link.url} className="nav-link rounded-2"> {link.text}</NavLink>
+                                    </li>
+                                ))}
+                                <div className="dropdown mt-4 mt-lg-0 ms-lg-4 ">
+                                    <button className="btn btn-light px-4 rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i className="bi bi-person-fill me-2"></i>
+                                        {user.name} {user.surname}
+                                    </button>
+                                    <ul className="dropdown-menu dropdown-menu-end">
+                                        <li>
+                                            <Link to={APP_ROUTES.MI_PERFIL} className="dropdown-item">
+                                                <i className="bi bi-person-vcard me-3"></i>
+                                                Mi perfil
+                                            </Link>
+                                        </li>
+                                        <hr />
+                                        <li>
+                                            <button className="dropdown-item" onClick={logout}>
+                                                <i className="bi bi-box-arrow-right me-3"></i>
+                                                Cerrar Sesión
+                                            </button>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </>
+
+                        }
+                        
 
                         {!user &&
                             <>
@@ -49,7 +83,7 @@ const Navbar = () => {
                             </>
                         }
 
-                        {user &&
+                        {/* {user &&
                             <div className="dropdown mt-4 mt-lg-0 ms-lg-4 ">
                                 <button className="btn btn-light px-4 rounded-pill dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i className="bi bi-person-fill me-2"></i>
@@ -70,7 +104,7 @@ const Navbar = () => {
                                         </button>
                                     </li>
                                 </ul>
-                            </div>}
+                            </div>} */}
 
                     </ul>
                 </div>

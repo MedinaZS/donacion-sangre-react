@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react"
 import { toast } from "react-hot-toast"
-import { useNavigate } from "react-router-dom"
-import { API_ROUTES, APP_ROUTES, getFormattedDate, getTokenFromLocalStorage, getUserFromLocalStorage, setUserToLocalStorage } from "../helpers/utility"
+import { useNavigate, useOutletContext } from "react-router-dom"
+import { API_ROUTES, APP_ROUTES, getFormattedDate, getTokenFromLocalStorage } from "../helpers/utility"
 import axios from "axios"
 import FormCard from "../components/FormCard"
 import { DatePicker } from "@mui/x-date-pickers"
@@ -10,6 +10,9 @@ import BlockButton from "../components/BlockButton"
 
 
 const EditarPerfil = () => {
+
+    // Get the user from outlet context
+    const user = useOutletContext();
 
     const [nombres, setNombres] = useState('')
     const [apellidos, setApellidos] = useState('')
@@ -28,20 +31,20 @@ const EditarPerfil = () => {
     const navigate = useNavigate()
 
     useEffect(() => {
-        const user = getUserFromLocalStorage();
-        if (user) {
-            // console.log(user)
-            setNombres(user.name)
-            setApellidos(user.surname)
-            setCedulaIdentidad(user.nro_cedula)
-            setSexo(user.sexo)
+        if (user.user) {
+            let userActual = user.user
+            // console.log(userActual)
+            setNombres(userActual.name)
+            setApellidos(userActual.surname)
+            setCedulaIdentidad(userActual.nro_cedula)
+            setSexo(userActual.sexo)
 
-            setFechaNacimiento(dayjs(user.fecha_nacimiento))
-            setEmail(user.email)
+            setFechaNacimiento(dayjs(userActual.fecha_nacimiento))
+            setEmail(userActual.email)
             setFill(true)
         }
 
-    }, [])
+    }, [user])
 
 
     const onSubmitHandler = (event) => {
@@ -74,7 +77,7 @@ const EditarPerfil = () => {
             .then(response => {
                 console.log(response.data)
                 toast.success("Datos actualizados correctamente")
-                setUserToLocalStorage(response.data.user)
+                // setUserToLocalStorage(response.data.user)
                 navigate(APP_ROUTES.MI_PERFIL)
             })
             .catch(error => console.log(error))
