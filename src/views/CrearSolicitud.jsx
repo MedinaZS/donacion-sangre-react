@@ -72,7 +72,7 @@ const CrearSolicitud = () => {
                 Authorization: `Bearer ${token}`
             }
         }).then(response => {
-            console.log(response)
+            // console.log(response)
             toast.success("Solicitud creada con éxito")
             navigate(APP_ROUTES.SOLICITUDES)
         })

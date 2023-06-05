@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import PageTitle from "../components/PageTitle";
 import axios from "axios";
-import { API_ROUTES, getTokenFromLocalStorage } from "../helpers/utility";
+import { API_ROUTES, APP_ROUTES, getTokenFromLocalStorage } from "../helpers/utility";
 import CardList from "../components/CardList";
 import EmptyListMessage from "../components/EmptyListMessage";
 
@@ -30,7 +30,7 @@ const Certificados = () => {
 
 	return (
 		<>
-			<PageTitle title={"Certificados"} icon={'bi-plus'} href={'/crear-certificado'} />
+			<PageTitle title={"Certificados"} icon={'bi-plus'} href={APP_ROUTES.CREAR_CERTIFICADO} />
 
 			{listaCertificados &&
 				(listaCertificados.length == 0

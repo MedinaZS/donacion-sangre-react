@@ -1,7 +1,7 @@
 import  { useState } from 'react'
 import FormCard from '../components/FormCard'
 import { useNavigate } from 'react-router-dom'
-import { API_ROUTES, APP_ROUTES, getTokenFromLocalStorage } from '../helpers/utility'
+import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, getTokenFromLocalStorage } from '../helpers/utility'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import BlockButton from '../components/BlockButton'
@@ -19,7 +19,6 @@ const CambiarPassword = () => {
 
 	const message = "Por favor intente de nuevo";
 	const navigate = useNavigate()
-	const minPasswordLenght = 8;
 
 
 	const onSubmitHandler = (event) => {
@@ -53,7 +52,7 @@ const CambiarPassword = () => {
 				navigate(APP_ROUTES.MI_PERFIL)
 			})
 			.catch(error => {
-				console.log(error)
+				// console.log(error)
 				const errorMessage = error.response?.data?.message
 				if(errorMessage){
 					toast.error("La contraseña actual no coincide. " +message )
@@ -72,15 +71,15 @@ const CambiarPassword = () => {
 		const delay = 300;
 
 
-		if (isEmpty(oldPassword) || oldPassword.length < minPasswordLenght) {
+		if (isEmpty(oldPassword) || oldPassword.length < MIN_PASS_LENGTH) {
 			timeout += delay;
 			setTimeout(() => { toast.error("Contraseña actual inválida. " + message) }, timeout);
 		}
-		if (isEmpty(password) || password.length < minPasswordLenght) {
+		if (isEmpty(password) || password.length < MIN_PASS_LENGTH) {
 			timeout += delay;
 			setTimeout(() => { toast.error("Contraseña nueva inválida. " + message) }, timeout);
 		}
-		if (isEmpty(confirmPassword) || confirmPassword.length < minPasswordLenght) {
+		if (isEmpty(confirmPassword) || confirmPassword.length < MIN_PASS_LENGTH) {
 			timeout += delay;
 			setTimeout(() => { toast.error("Confirmar contraseña inválida. " + message) }, timeout);
 		}
@@ -134,7 +133,7 @@ const CambiarPassword = () => {
 					</div>
 				</div>
 				
-				<div id="emailHelp" className="form-text mb-2">Las contraseña debe de tener minimo 8 caracteres</div>
+				<div id="emailHelp" className="form-text mb-2">Las contraseña debe de tener minimo {MIN_PASS_LENGTH} caracteres</div>
 
 				<BlockButton title={"Actualizar"}/>
 			</div>
