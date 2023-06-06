@@ -29,24 +29,6 @@ function Root() {
 
   }, [tokenRedux])
 
-  // const getUserFromDatabase = (token) => {
-  //   console.log(token)
-  //   const config = {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`
-  //     }
-  //   }
-
-  //   axios.get(API_ROUTES.MI_PERFIL, config)
-  //     .then(response => {
-  //       // console.log(response.data)
-  //       setUser(response.data)
-
-  //     })
-  //     .catch(error => console.log("Error", error))
-  // }
-
-
   return (
     <div className="min-vh-100 d-flex flex-column">
       <Navbar/>

@@ -17,7 +17,10 @@ import CambiarPassword from './views/CambiarPassword';
 import ResetPassword from './views/ResetPassword';
 
 import { Provider } from 'react-redux';
-import store from './store/index.js';
+import { persistor, store } from './store/index.js';
+
+import { PersistGate } from 'redux-persist/lib/integration/react';
+
 
 
 const router = createBrowserRouter(
@@ -47,7 +50,9 @@ ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
 		{/* Envolver el componente con el provider, proporcionando el store */}
 		<Provider store={store}> 
-			<RouterProvider router={router} />
+			<PersistGate loading={null} persistor={persistor}>
+				<RouterProvider router={router} />
+			</PersistGate>
 		</Provider>
 	</React.StrictMode>
 )
