@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import FormCard from "../components/FormCard"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, getFormattedDate, getTokenFromLocalStorage } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, getFormattedDate } from "../helpers/utility"
 import { toast } from "react-hot-toast"
 import { DatePicker } from "@mui/x-date-pickers"
 import { useNavigate } from "react-router-dom"
 import BlockButton from "../components/BlockButton"
+import { useSelector } from "react-redux"
 
 
 const CrearCertificado = () => {
@@ -13,8 +14,9 @@ const CrearCertificado = () => {
 
     const [establecimiento, setEstablecimiento] = useState('')
     const [fechaDonacion, setFechaDonacion] = useState('')
-
     const [listaEstablecimientos, setListaEstablecimientos] = useState(null)
+
+    const tokenRedux = useSelector(state => state.token)
 
     const message = "Por favor intente de nuevo";
 
@@ -50,12 +52,10 @@ const CrearCertificado = () => {
     
 
     const saveToDatabase = (data) => {
-        // const token = '355|CQoIjLk22W2cRYMECEkXqTdImu0MTscUtGqOlgBQ'
-        const token = getTokenFromLocalStorage()
-       
+
         axios.post(API_ROUTES.CREAR_CERTIFICADO, data, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${tokenRedux}`
             }
         }).then(response => {
             // console.log(response)

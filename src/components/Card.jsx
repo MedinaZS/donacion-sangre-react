@@ -1,15 +1,15 @@
-import { useOutletContext } from "react-router-dom";
+import { showFormattedDate } from "../helpers/utility";
 import DeleteButton from "./Solicitudes/DeleteButton";
 import ShareButton from "./Solicitudes/ShareButton";
+import { useSelector } from "react-redux";
 
 const Card = ({ solicitud, certificado, listaSolicitudes, setListaSolicitudes }) => {
 
     const type = ["A+", "A-", "B+", "B-", "O+", "O-", "AB-", "AB+"]
     const iconSrc = (solicitud && "https://res.cloudinary.com/dhzoxdo6q/image/upload/donacion-sangre/" + type[solicitud.tipo_sangre - 1] + ".png")
 
-    // const userId = getUserFromLocalStorage().id;
-    const user = useOutletContext();
-    let userId = user.user?.id
+    const userRedux = useSelector(state => state.user)
+    let userId = userRedux.id
 
 
     return (
@@ -53,7 +53,7 @@ const Card = ({ solicitud, certificado, listaSolicitudes, setListaSolicitudes })
                     </p>
                     <p className="d-flex justify-content-between">
                         <span className="fw-bold">{solicitud ? 'Fecha Limite' : 'Fecha de Donacion'}:</span>
-                        <span>{solicitud ? solicitud.fecha_limite : certificado.fecha_donacion}</span>
+                        <span>{solicitud ? showFormattedDate(solicitud.fecha_limite) :  showFormattedDate(certificado.fecha_donacion)}</span>
                     </p>
                 </div>
                 {solicitud && <div className="card-footer border-danger">

@@ -3,8 +3,9 @@ import { toast } from "react-hot-toast"
 import { Link, useNavigate } from "react-router-dom"
 import FormCard from "../components/FormCard"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, setTokenToLocalStorage } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH } from "../helpers/utility"
 import BlockButton from "../components/BlockButton"
+import { useDispatch } from "react-redux"
 
 
 const Login = () => {
@@ -12,10 +13,13 @@ const Login = () => {
 	const [viewPassword, setViewPassword] = useState(false)
 	const [email, setEmail] = useState('')
 	const [password, setPassword] = useState('')
+
 	const message = "Por favor intente de nuevo";
 	const pattern = /\S+@\S+\.\S+/
 
 	const navigate = useNavigate()
+	const dispatch = useDispatch();
+	
 
 	const onSubmitHandler = (event) => {
 		event.preventDefault();
@@ -25,8 +29,10 @@ const Login = () => {
 			axios.post(API_ROUTES.LOGIN, { email, password })
 				.then(response => {
 					// console.log(response.data)
-					setTokenToLocalStorage(response.data.token)
-					// setUserToLocalStorage(response.data.user)
+					let token = response.data.token
+					let user = response.data.user
+					dispatch({ type: 'setToken', payload: token })
+					dispatch({ type: 'setUser', payload: user })
 					navigate(APP_ROUTES.SOLICITUDES)
 				})
 				.catch(error => {
@@ -41,8 +47,8 @@ const Login = () => {
 	}
 
 	const isEmpty = (str) => {
-        return str.trim() == ''
-    }
+		return str.trim() == ''
+	}
 
 	const validateFields = () => {
 		let noError = true;
@@ -84,7 +90,7 @@ const Login = () => {
 				<div className="form-text">La contraseña debe de tener minimo {MIN_PASS_LENGTH} caracteres</div>
 			</div>
 
-			<BlockButton title={"Iniciar Sesión"}/>
+			<BlockButton title={"Iniciar Sesión"} />
 
 			<div className="text-center">
 				<Link to={APP_ROUTES.RESET_PASSWORD} className="text-danger"> ¿Olvidaste tu contraseña?</Link>

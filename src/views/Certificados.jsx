@@ -1,19 +1,20 @@
 import { useEffect, useState } from "react";
 import PageTitle from "../components/PageTitle";
 import axios from "axios";
-import { API_ROUTES, APP_ROUTES, getTokenFromLocalStorage } from "../helpers/utility";
+import { API_ROUTES, APP_ROUTES } from "../helpers/utility";
 import CardList from "../components/CardList";
 import EmptyListMessage from "../components/EmptyListMessage";
+import { useSelector } from "react-redux";
 
 const Certificados = () => {
 
 	const [listaCertificados, setListaCertificados] = useState(null)
+	const tokenRedux = useSelector(state => state.token)
 
 	useEffect(() => {
-		const token = getTokenFromLocalStorage()
 		const config = {
 			headers: {
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${tokenRedux}`
 			}
 		}
 

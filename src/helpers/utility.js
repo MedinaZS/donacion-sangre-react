@@ -48,25 +48,15 @@ export const getFormattedDate = (date) => {
     return formattedDate;
 }
 
-
-export const setTokenToLocalStorage = (token) => {
-    localStorage.setItem("token", token)
-}
-export const getTokenFromLocalStorage = () => {
-    return localStorage.getItem("token")
-}
-
-
-// export const setUserToLocalStorage = (user) => {
-//     localStorage.setItem("user", JSON.stringify(user))
-// }
-// export const getUserFromLocalStorage = () => {
-//     return  JSON.parse(localStorage.getItem("user"))
-// }
-
-
-export const clearLocalStorage = () => {
-    localStorage.clear()
+export const showFormattedDate = (oldDate) => {
+    let newDate = ''
+    // Hay fechas ya cargadas con formato dd/mm/yyyy
+    if (oldDate.split("-").length != 1) {
+        newDate = oldDate.split("-").reverse().join("/")
+    }else{
+        newDate = oldDate
+    }
+    return newDate;
 }
 
 export const capitalizeFirstLetter = (string) => {

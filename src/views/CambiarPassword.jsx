@@ -1,21 +1,22 @@
 import  { useState } from 'react'
 import FormCard from '../components/FormCard'
 import { useNavigate } from 'react-router-dom'
-import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, getTokenFromLocalStorage } from '../helpers/utility'
+import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH } from '../helpers/utility'
 import axios from 'axios'
 import { toast } from 'react-hot-toast'
 import BlockButton from '../components/BlockButton'
+import { useSelector } from 'react-redux'
 
 const CambiarPassword = () => {
 	const [oldPassword, setOldPassword] = useState('')
 	const [password, setPassword] = useState('')
 	const [confirmPassword, setConfirmPassword] = useState('')
 
-
 	const [viewOldPassword, setViewOldPassword] = useState(false)
 	const [viewPassword, setViewPassword] = useState(false)
 	const [viewConfirmPassword, setViewConfirmPassword] = useState(false)
 
+	const tokenRedux = useSelector(state => state.token)
 
 	const message = "Por favor intente de nuevo";
 	const navigate = useNavigate()
@@ -38,10 +39,10 @@ const CambiarPassword = () => {
 	}
 
 	const saveToDatabase = (data) => {
-		const token = getTokenFromLocalStorage()
+		
 		const config = {
 			headers: {
-				Authorization: `Bearer ${token}`
+				Authorization: `Bearer ${tokenRedux}`
 			}
 		}
 		axios.post(API_ROUTES.CAMBIAR_PASSWORD, data, config)
@@ -92,8 +93,6 @@ const CambiarPassword = () => {
 
 		return noError
 	}
-
-
 
 	const handleInputChange = (event) => {
 		// date.toLocaleDateString("es-PY")

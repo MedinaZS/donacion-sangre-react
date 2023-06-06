@@ -1,13 +1,11 @@
-import { useState } from "react"
+import { useSelector } from "react-redux"
 import FormCard from "../components/FormCard"
-import { useEffect } from "react"
-import { API_ROUTES, APP_ROUTES, getTokenFromLocalStorage } from "../helpers/utility"
-import axios from "axios"
-import { Link, useOutletContext } from "react-router-dom"
+import { APP_ROUTES, showFormattedDate } from "../helpers/utility"
+import { Link } from "react-router-dom"
 
 
 const Perfil = () => {
-	const {user} = useOutletContext()
+	const userRedux = useSelector(state => state.user)
 
 	const links = [
 		{ text: 'Editar Información', url: APP_ROUTES.EDITAR_PERFIL },
@@ -21,33 +19,33 @@ const Perfil = () => {
 		<>
 			<FormCard title={"Mi user"} hasImage={false}>
 				<hr />
-				{user &&
+				{userRedux &&
 
 					<div className="col-md-8 mx-auto">
 						<div className="text-center mb-5">
-							<img className="shadow rounded-circle" width={150} src={link + user.sexo + '.png'} alt="" />
-							<h2 className="mt-3">{user.name} {user.surname}</h2>
+							<img className="shadow rounded-circle" width={150} src={link + userRedux.sexo + '.png'} alt="" />
+							<h2 className="mt-3">{userRedux.name} {userRedux.surname}</h2>
 						</div>
 
 						<p className="row mb-4">
 							<span className="col-sm-6 text-center text-sm-start"><strong>Fecha de nacimiento: </strong></span>
-							<span className="col-sm-6 text-center text-sm-end">{user.fecha_nacimiento}</span>
+							<span className="col-sm-6 text-center text-sm-end">{showFormattedDate(userRedux?.fecha_nacimiento)}</span>
 						</p>
 						<p className="row mb-4">
 							<span className="col-sm-6 text-center text-sm-start"><strong>Email: </strong></span>
-							<span className="col-sm-6 text-center text-sm-end">{user.email}</span>
+							<span className="col-sm-6 text-center text-sm-end">{userRedux.email}</span>
 						</p>
 						<p className="row mb-4">
 							<span className="col-sm-6 text-center text-sm-start"><strong>Última vez donado: </strong></span>
-							<span className="col-sm-6 text-center text-sm-end">{user.ult_vez_donado ? user.ult_vez_donado : 'Sin donar'}</span>
+							<span className="col-sm-6 text-center text-sm-end">{userRedux.ult_vez_donado ? showFormattedDate(userRedux?.ult_vez_donado) : 'Sin donar'}</span>
 						</p>
 						<p className="row mb-4">
 							<span className="col-sm-6 text-center text-sm-start"><strong>Sexo: </strong></span>
-							<span className="col-sm-6 text-center text-sm-end">{user.sexo == 'M' ? 'Femenino' : (user.sexo == 'H' ? 'Masculino' : '-')}</span>
+							<span className="col-sm-6 text-center text-sm-end">{userRedux.sexo == 'M' ? 'Femenino' : (userRedux.sexo == 'H' ? 'Masculino' : '-')}</span>
 						</p>
 						<p className="row mb-4">
 							<span className="col-sm-6 text-center text-sm-start"><strong>C.I.: </strong></span>
-							<span className="col-sm-6 text-center text-sm-end">{user.nro_cedula}</span>
+							<span className="col-sm-6 text-center text-sm-end">{userRedux.nro_cedula}</span>
 						</p>
 						<div className="d-grid mt-5">
 

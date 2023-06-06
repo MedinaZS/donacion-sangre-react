@@ -1,13 +1,14 @@
 // import React from 'react'
 
 import axios from "axios"
-import { API_ROUTES, getTokenFromLocalStorage } from "../../helpers/utility"
+import { API_ROUTES } from "../../helpers/utility"
 import { toast } from "react-hot-toast"
 import Swal from "sweetalert2"
+import { useSelector } from "react-redux"
 
 const DeleteButton = ({ id, listaSolicitudes, setListaSolicitudes }) => {
 
-    const token = getTokenFromLocalStorage()
+    const tokenRedux = useSelector(state => state.token)
 
     const handleClick = () => {
 
@@ -37,7 +38,7 @@ const DeleteButton = ({ id, listaSolicitudes, setListaSolicitudes }) => {
     const eliminarSolicitud = () => {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${tokenRedux}`
             }
         }
 

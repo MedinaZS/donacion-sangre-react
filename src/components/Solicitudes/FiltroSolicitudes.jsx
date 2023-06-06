@@ -2,13 +2,14 @@
 
 import axios from "axios";
 import { useEffect, useState } from "react"
-import { API_ROUTES, getTokenFromLocalStorage } from "../../helpers/utility";
+import { API_ROUTES } from "../../helpers/utility";
+import { useSelector } from "react-redux";
 
 const FiltroSolicitudes = ({ setListaSolicitudes }) => {
 
     const [filtro, setFiltro] = useState(false);
 
-    const token = getTokenFromLocalStorage()
+    const tokenRedux = useSelector(state => state.token)
 
     useEffect(() => {
         if (!filtro) {
@@ -34,7 +35,7 @@ const FiltroSolicitudes = ({ setListaSolicitudes }) => {
     const getMisSolicitudes = () => {
         const config = {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${tokenRedux}`
             }
         }
 

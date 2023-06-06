@@ -4,8 +4,9 @@ import { Link, useNavigate } from "react-router-dom"
 import FormCard from "../components/FormCard"
 import { DatePicker } from "@mui/x-date-pickers"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, capitalizeFirstLetter, getFormattedDate, setTokenToLocalStorage } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, MIN_PASS_LENGTH, capitalizeFirstLetter, getFormattedDate } from "../helpers/utility"
 import BlockButton from "../components/BlockButton"
+import { useDispatch } from "react-redux"
 
 
 
@@ -24,6 +25,7 @@ const SingUp = () => {
     const [viewPassword, setViewPassword] = useState(false)
     const [viewConfirmPassword, setViewConfirmPassword] = useState(false)
 
+    const dispatch = useDispatch()
 
     const message = "Por favor intente de nuevo";
     const emailPattern = /\S+@\S+\.\S+/
@@ -57,8 +59,10 @@ const SingUp = () => {
         axios.post(API_ROUTES.REGISTRO, data)
             .then(response => {
                 // console.log(response.data)
-                setTokenToLocalStorage(response.data.token)
-                // setUserToLocalStorage(response.data.user)
+                let token = response.data.token
+                let user = response.data.user
+                dispatch({ type: 'setToken', payload: token })
+                dispatch({ type: 'setUser', payload: user })
                 navigate(APP_ROUTES.SOLICITUDES)
             })
             .catch(error => {

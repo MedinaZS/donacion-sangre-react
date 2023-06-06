@@ -16,6 +16,9 @@ import { APP_ROUTES } from './helpers/utility.js';
 import CambiarPassword from './views/CambiarPassword';
 import ResetPassword from './views/ResetPassword';
 
+import { Provider } from 'react-redux';
+import store from './store/index.js';
+
 
 const router = createBrowserRouter(
 	createRoutesFromElements(
@@ -42,6 +45,9 @@ const router = createBrowserRouter(
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		{/* Envolver el componente con el provider, proporcionando el store */}
+		<Provider store={store}> 
+			<RouterProvider router={router} />
+		</Provider>
 	</React.StrictMode>
 )

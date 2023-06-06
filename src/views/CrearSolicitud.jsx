@@ -1,11 +1,12 @@
 import { useEffect, useState } from "react"
 import FormCard from "../components/FormCard"
 import axios from "axios"
-import { API_ROUTES, APP_ROUTES, getFormattedDate, getTokenFromLocalStorage } from "../helpers/utility"
+import { API_ROUTES, APP_ROUTES, getFormattedDate } from "../helpers/utility"
 import { toast } from "react-hot-toast"
 import { DatePicker } from "@mui/x-date-pickers"
 import { useNavigate } from "react-router-dom"
 import BlockButton from "../components/BlockButton"
+import { useSelector } from "react-redux"
 
 
 const CrearSolicitud = () => {
@@ -21,6 +22,8 @@ const CrearSolicitud = () => {
     const [solicitud, setSolicitud] = useState('')
 
     const [listaEstablecimientos, setListaEstablecimientos] = useState(null)
+
+    const tokenRedux = useSelector(state => state.token)
 
     const type = ["A+", "A-", "B+", "B-", "O+", "O-", "AB-", "AB+"]
     const message = "Por favor intente de nuevo";
@@ -65,11 +68,10 @@ const CrearSolicitud = () => {
     }
 
     const saveToDatabase = (data) => {
-        const token = getTokenFromLocalStorage()
 
         axios.post(API_ROUTES.CREAR_SOLICITUD, data, {
             headers: {
-                Authorization: `Bearer ${token}`
+                Authorization: `Bearer ${tokenRedux}`
             }
         }).then(response => {
             // console.log(response)
@@ -126,7 +128,7 @@ const CrearSolicitud = () => {
 
         if (timeout != 0) noError = false
 
-      
+
 
         return noError
     }
@@ -214,8 +216,8 @@ const CrearSolicitud = () => {
                 <textarea className="form-control" id="solicitud" cols="30" rows="3" onChange={handleInputChange}></textarea>
             </div>
 
-            <BlockButton title={"Generar Solicitud"}/>
-            
+            <BlockButton title={"Generar Solicitud"} />
+
         </FormCard>
     )
 }

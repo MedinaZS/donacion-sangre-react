@@ -1,3 +1,5 @@
+import { showFormattedDate } from "../../helpers/utility"
+
 // import React from 'react'
 const ShareButton = ({ solicitud }) => {
 
@@ -10,9 +12,9 @@ const ShareButton = ({ solicitud }) => {
         `Lugar donación: ${solicitud.establecimiento}\n` +
         `RH: ${type[solicitud.tipo_sangre - 1]} \n` +
         `Volumenes Necesarios: ${solicitud.volumenes_necesarios}\n` +
-        `Fecha Limite: ${solicitud.fecha_limite}\n` +
+        `Fecha Limite: ${showFormattedDate(solicitud.fecha_limite)}\n` +
         `Solicitud: ${solicitud.solicitud}\n` +
-        `Link: http://localhost:5500/index.html\n`
+        `Link: http://localhost:5500/solicitudes\n`
 
     link_whatsapp = link_whatsapp.replaceAll(' ', '%20')
     link_whatsapp = link_whatsapp.replaceAll('\n', '%0a')
